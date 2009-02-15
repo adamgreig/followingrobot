@@ -1,16 +1,16 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_exti.h
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file contains all the functions prototypes for the
 *                      EXTI firmware library.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -29,7 +29,7 @@ typedef enum
   EXTI_Mode_Event = 0x04
 }EXTIMode_TypeDef;
 
-#define IS_EXTI_MODE(MODE) ((MODE == EXTI_Mode_Interrupt) || (MODE == EXTI_Mode_Event))
+#define IS_EXTI_MODE(MODE) (((MODE) == EXTI_Mode_Interrupt) || ((MODE) == EXTI_Mode_Event))
                             
 /* EXTI Trigger enumeration --------------------------------------------------*/
 typedef enum
@@ -39,9 +39,9 @@ typedef enum
   EXTI_Trigger_Rising_Falling = 0x10
 }EXTITrigger_TypeDef;
 
-#define IS_EXTI_TRIGGER(TRIGGER) ((TRIGGER == EXTI_Trigger_Rising) || \
-                                  (TRIGGER == EXTI_Trigger_Falling) || \
-                                  (TRIGGER == EXTI_Trigger_Rising_Falling))
+#define IS_EXTI_TRIGGER(TRIGGER) (((TRIGGER) == EXTI_Trigger_Rising) || \
+                                  ((TRIGGER) == EXTI_Trigger_Falling) || \
+                                  ((TRIGGER) == EXTI_Trigger_Rising_Falling))
 
 /* EXTI Init Structure definition --------------------------------------------*/
 typedef struct
@@ -78,18 +78,18 @@ typedef struct
                                             Connected to the USB Wakeup from 
                                             suspend event */
 
-#define IS_EXTI_LINE(LINE) (((LINE & (u32)0xFFF80000) == 0x00) && (LINE != (u16)0x00))
+#define IS_EXTI_LINE(LINE) ((((LINE) & (u32)0xFFF80000) == 0x00) && ((LINE) != (u16)0x00))
 
-#define IS_GET_EXTI_LINE(LINE) ((LINE == EXTI_Line0) || (LINE == EXTI_Line1) || \
-                            (LINE == EXTI_Line2) || (LINE == EXTI_Line3) || \
-                            (LINE == EXTI_Line4) || (LINE == EXTI_Line5) || \
-                            (LINE == EXTI_Line6) || (LINE == EXTI_Line7) || \
-                            (LINE == EXTI_Line8) || (LINE == EXTI_Line9) || \
-                            (LINE == EXTI_Line10) || (LINE == EXTI_Line11) || \
-                            (LINE == EXTI_Line12) || (LINE == EXTI_Line13) || \
-                            (LINE == EXTI_Line14) || (LINE == EXTI_Line15) || \
-                            (LINE == EXTI_Line16) || (LINE == EXTI_Line17) || \
-                            (LINE == EXTI_Line18))
+#define IS_GET_EXTI_LINE(LINE) (((LINE) == EXTI_Line0) || ((LINE) == EXTI_Line1) || \
+                            ((LINE) == EXTI_Line2) || ((LINE) == EXTI_Line3) || \
+                            ((LINE) == EXTI_Line4) || ((LINE) == EXTI_Line5) || \
+                            ((LINE) == EXTI_Line6) || ((LINE) == EXTI_Line7) || \
+                            ((LINE) == EXTI_Line8) || ((LINE) == EXTI_Line9) || \
+                            ((LINE) == EXTI_Line10) || ((LINE) == EXTI_Line11) || \
+                            ((LINE) == EXTI_Line12) || ((LINE) == EXTI_Line13) || \
+                            ((LINE) == EXTI_Line14) || ((LINE) == EXTI_Line15) || \
+                            ((LINE) == EXTI_Line16) || ((LINE) == EXTI_Line17) || \
+                            ((LINE) == EXTI_Line18))
                                  
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -104,4 +104,4 @@ void EXTI_ClearITPendingBit(u32 EXTI_Line);
 
 #endif /* __STM32F10x_EXTI_H */
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

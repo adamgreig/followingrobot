@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_bkp.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the BKP firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -190,7 +190,7 @@ void BKP_SetRTCCalibrationValue(u8 CalibrationValue)
 * Function Name  : BKP_WriteBackupRegister
 * Description    : Writes user data to the specified Data Backup Register.
 * Input          : - BKP_DR: specifies the Data Backup Register.
-*                    This parameter can be BKP_DRx where x:[1, 10]
+*                    This parameter can be BKP_DRx where x:[1, 42]
 *                  - Data: data to write
 * Output         : None
 * Return         : None
@@ -207,7 +207,7 @@ void BKP_WriteBackupRegister(u16 BKP_DR, u16 Data)
 * Function Name  : BKP_ReadBackupRegister
 * Description    : Reads data from the specified Data Backup Register.
 * Input          : - BKP_DR: specifies the Data Backup Register.
-*                    This parameter can be BKP_DRx where x:[1, 10]
+*                    This parameter can be BKP_DRx where x:[1, 42]
 * Output         : None
 * Return         : The content of the specified Data Backup Register
 *******************************************************************************/
@@ -269,4 +269,4 @@ void BKP_ClearITPendingBit(void)
   BKP->CSR |= CSR_CTI_Set;
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

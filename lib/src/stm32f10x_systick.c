@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_systick.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the SysTick firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -22,9 +22,6 @@
 /* CTRL TICKINT Mask */
 #define CTRL_TICKINT_Set      ((u32)0x00000002)
 #define CTRL_TICKINT_Reset    ((u32)0xFFFFFFFD)
-
-/* SysTick Flag Mask */
-#define FLAG_Mask             ((u8)0x1F)
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -90,21 +87,18 @@ void SysTick_CounterCmd(u32 SysTick_Counter)
   /* Check the parameters */
   assert_param(IS_SYSTICK_COUNTER(SysTick_Counter));
 
-  if (SysTick_Counter == SysTick_Counter_Clear)
+  if (SysTick_Counter == SysTick_Counter_Enable)
+  {
+    SysTick->CTRL |= SysTick_Counter_Enable;
+  }
+  else if (SysTick_Counter == SysTick_Counter_Disable) 
+  {
+    SysTick->CTRL &= SysTick_Counter_Disable;
+  }
+  else /* SysTick_Counter == SysTick_Counter_Clear */
   {
     SysTick->VAL = SysTick_Counter_Clear;
-  }
-  else
-  {
-    if (SysTick_Counter == SysTick_Counter_Enable)
-    {
-      SysTick->CTRL |= SysTick_Counter_Enable;
-    }
-    else
-    {
-      SysTick->CTRL &= SysTick_Counter_Disable;
-    }
-  }
+  }    
 }
 
 /*******************************************************************************
@@ -155,17 +149,16 @@ u32 SysTick_GetCounter(void)
 *******************************************************************************/
 FlagStatus SysTick_GetFlagStatus(u8 SysTick_FLAG)
 {
-  u32 tmp = 0;
-  u32 statusreg = 0;
+  u32 statusreg = 0, tmp = 0 ;
   FlagStatus bitstatus = RESET;
 
   /* Check the parameters */
   assert_param(IS_SYSTICK_FLAG(SysTick_FLAG));
 
   /* Get the SysTick register index */
-  tmp = SysTick_FLAG >> 5;
+  tmp = SysTick_FLAG >> 3;
 
-  if (tmp == 1) /* The flag to check is in CTRL register */
+  if (tmp == 2) /* The flag to check is in CTRL register */
   {
     statusreg = SysTick->CTRL;
   }
@@ -174,10 +167,7 @@ FlagStatus SysTick_GetFlagStatus(u8 SysTick_FLAG)
     statusreg = SysTick->CALIB;
   }
 
-  /* Get the flag position */
-  tmp = SysTick_FLAG & FLAG_Mask;
-
-  if ((statusreg & ((u32)1 << tmp)) != (u32)RESET)
+  if ((statusreg & ((u32)1 << SysTick_FLAG)) != (u32)RESET)
   {
     bitstatus = SET;
   }
@@ -188,4 +178,4 @@ FlagStatus SysTick_GetFlagStatus(u8 SysTick_FLAG)
   return bitstatus;
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_rtc.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the RTC firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -21,7 +21,6 @@
 #define CRL_CNF_Set      ((u16)0x0010)      /* Configuration Flag Enable Mask */
 #define CRL_CNF_Reset    ((u16)0xFFEF)      /* Configuration Flag Disable Mask */
 #define RTC_LSB_Mask     ((u32)0x0000FFFF)  /* RTC LSB Mask */
-#define RTC_MSB_Mask     ((u32)0xFFFF0000)  /* RTC MSB Mask */
 #define PRLH_MSB_Mask    ((u32)0x000F0000)  /* RTC Prescaler MSB Mask */
 
 /* Private macro -------------------------------------------------------------*/
@@ -112,7 +111,7 @@ void RTC_SetCounter(u32 CounterValue)
   RTC_EnterConfigMode();
 
   /* Set RTC COUNTER MSB word */
-  RTC->CNTH = (CounterValue & RTC_MSB_Mask) >> 16;
+  RTC->CNTH = CounterValue >> 16;
   /* Set RTC COUNTER LSB word */
   RTC->CNTL = (CounterValue & RTC_LSB_Mask);
 
@@ -134,7 +133,7 @@ void RTC_SetPrescaler(u32 PrescalerValue)
   RTC_EnterConfigMode();
 
   /* Set RTC PRESCALER MSB word */
-  RTC->PRLH = (PrescalerValue & PRLH_MSB_Mask) >> 0x10;
+  RTC->PRLH = (PrescalerValue & PRLH_MSB_Mask) >> 16;
   /* Set RTC PRESCALER LSB word */
   RTC->PRLL = (PrescalerValue & RTC_LSB_Mask);
 
@@ -153,7 +152,7 @@ void RTC_SetAlarm(u32 AlarmValue)
   RTC_EnterConfigMode();
 
   /* Set the ALARM MSB word */
-  RTC->ALRH = (AlarmValue & RTC_MSB_Mask) >> 16;
+  RTC->ALRH = AlarmValue >> 16;
   /* Set the ALARM LSB word */
   RTC->ALRL = (AlarmValue & RTC_LSB_Mask);
 
@@ -171,7 +170,7 @@ u32 RTC_GetDivider(void)
 {
   u32 tmp = 0x00;
 
-  tmp = ((u32)RTC->DIVH & (u32)0x000F) << 0x10;
+  tmp = ((u32)RTC->DIVH & (u32)0x000F) << 16;
   tmp |= RTC->DIVL;
 
   return tmp;
@@ -285,9 +284,9 @@ ITStatus RTC_GetITStatus(u16 RTC_IT)
   /* Check the parameters */
   assert_param(IS_RTC_GET_IT(RTC_IT)); 
   
-  bitstatus = (ITStatus)((RTC->CRL & RTC_IT) != (u16)RESET);
+  bitstatus = (ITStatus)(RTC->CRL & RTC_IT);
 
-  if (((RTC->CRH & RTC_IT) != (u16)RESET) && bitstatus)
+  if (((RTC->CRH & RTC_IT) != (u16)RESET) && (bitstatus != (u16)RESET))
   {
     bitstatus = SET;
   }
@@ -318,4 +317,4 @@ void RTC_ClearITPendingBit(u16 RTC_IT)
   RTC->CRL &= (u16)~RTC_IT;
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

@@ -1,10 +1,10 @@
 /******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
-* File Name          : stm32f10x_wwdg.h
+* File Name          : stm32f10x_dbgmcu.h
 * Author             : MCD Application Team
 * Version            : V2.0.3
 * Date               : 09/22/2008
 * Description        : This file contains all the functions prototypes for the
-*                      WWDG firmware library.
+*                      DBGMCU firmware library.
 ********************************************************************************
 * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
@@ -15,40 +15,41 @@
 *******************************************************************************/
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F10x_WWDG_H
-#define __STM32F10x_WWDG_H
+#ifndef __STM32F10x_DBGMCU_H
+#define __STM32F10x_DBGMCU_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_map.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-/* WWDG Prescaler */
-#define WWDG_Prescaler_1    ((u32)0x00000000)
-#define WWDG_Prescaler_2    ((u32)0x00000080)
-#define WWDG_Prescaler_4    ((u32)0x00000100)
-#define WWDG_Prescaler_8    ((u32)0x00000180)
-
-#define IS_WWDG_PRESCALER(PRESCALER) (((PRESCALER) == WWDG_Prescaler_1) || \
-                                      ((PRESCALER) == WWDG_Prescaler_2) || \
-                                      ((PRESCALER) == WWDG_Prescaler_4) || \
-                                      ((PRESCALER) == WWDG_Prescaler_8))
-
-#define IS_WWDG_WINDOW_VALUE(VALUE) ((VALUE) <= 0x7F)
-
-#define IS_WWDG_COUNTER(COUNTER) (((COUNTER) >= 0x40) && ((COUNTER) <= 0x7F))
+#define DBGMCU_SLEEP                 ((u32)0x00000001)
+#define DBGMCU_STOP                  ((u32)0x00000002)
+#define DBGMCU_STANDBY               ((u32)0x00000004)
+#define DBGMCU_IWDG_STOP             ((u32)0x00000100)
+#define DBGMCU_WWDG_STOP             ((u32)0x00000200)
+#define DBGMCU_TIM1_STOP             ((u32)0x00000400)
+#define DBGMCU_TIM2_STOP             ((u32)0x00000800)
+#define DBGMCU_TIM3_STOP             ((u32)0x00001000)
+#define DBGMCU_TIM4_STOP             ((u32)0x00002000)
+#define DBGMCU_CAN_STOP              ((u32)0x00004000)
+#define DBGMCU_I2C1_SMBUS_TIMEOUT    ((u32)0x00008000)
+#define DBGMCU_I2C2_SMBUS_TIMEOUT    ((u32)0x00010000)
+#define DBGMCU_TIM5_STOP             ((u32)0x00020000)
+#define DBGMCU_TIM6_STOP             ((u32)0x00040000)
+#define DBGMCU_TIM7_STOP             ((u32)0x00080000)
+#define DBGMCU_TIM8_STOP             ((u32)0x00100000)
+                                           
+#define IS_DBGMCU_PERIPH(PERIPH) ((((PERIPH) & 0xFFE000F8) == 0x00) && ((PERIPH) != 0x00))
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void WWDG_DeInit(void);
-void WWDG_SetPrescaler(u32 WWDG_Prescaler);
-void WWDG_SetWindowValue(u8 WindowValue);
-void WWDG_EnableIT(void);
-void WWDG_SetCounter(u8 Counter);
-void WWDG_Enable(u8 Counter);
-FlagStatus WWDG_GetFlagStatus(void);
-void WWDG_ClearFlag(void);
+u32 DBGMCU_GetREVID(void);
+u32 DBGMCU_GetDEVID(void);
+void DBGMCU_Config(u32 DBGMCU_Periph, FunctionalState NewState);
 
-#endif /* __STM32F10x_WWDG_H */
+#endif /* __STM32F10x_DBGMCU_H */
 
 /******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/
+
+

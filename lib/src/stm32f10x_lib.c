@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_lib.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all peripherals pointers initialization.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -45,6 +45,10 @@ void debug(void)
   ADC2 = (ADC_TypeDef *)  ADC2_BASE;
 #endif /*_ADC2 */
 
+#ifdef _ADC3
+  ADC3 = (ADC_TypeDef *)  ADC3_BASE;
+#endif /*_ADC3 */
+
 /************************************* BKP ************************************/
 #ifdef _BKP
   BKP = (BKP_TypeDef *)  BKP_BASE;
@@ -55,38 +59,74 @@ void debug(void)
   CAN = (CAN_TypeDef *)  CAN_BASE;
 #endif /*_CAN */
 
+/************************************* CRC ************************************/
+#ifdef _CRC
+  CRC = (CRC_TypeDef *)  CRC_BASE;
+#endif /*_CRC */
+
+/************************************* DAC ************************************/
+#ifdef _DAC
+  DAC = (DAC_TypeDef *)  DAC_BASE;
+#endif /*_DAC */
+
+/************************************* DBGMCU**********************************/
+#ifdef _DBGMCU
+  DBGMCU = (DBGMCU_TypeDef *)  DBGMCU_BASE;
+#endif /*_DBGMCU */
+
 /************************************* DMA ************************************/
 #ifdef _DMA
-  DMA = (DMA_TypeDef *)  DMA_BASE;
+  DMA1 = (DMA_TypeDef *)  DMA1_BASE;
+  DMA2 = (DMA_TypeDef *)  DMA2_BASE;
 #endif /*_DMA */
 
-#ifdef _DMA_Channel1
-  DMA_Channel1 = (DMA_Channel_TypeDef *)  DMA_Channel1_BASE;
-#endif /*_DMA_Channel1 */
+#ifdef _DMA1_Channel1
+  DMA1_Channel1 = (DMA_Channel_TypeDef *)  DMA1_Channel1_BASE;
+#endif /*_DMA1_Channel1 */
 
-#ifdef _DMA_Channel2
-  DMA_Channel2 = (DMA_Channel_TypeDef *)  DMA_Channel2_BASE;
-#endif /*_DMA_Channel2 */
+#ifdef _DMA1_Channel2
+  DMA1_Channel2 = (DMA_Channel_TypeDef *)  DMA1_Channel2_BASE;
+#endif /*_DMA1_Channel2 */
 
-#ifdef _DMA_Channel3
-  DMA_Channel3 = (DMA_Channel_TypeDef *)  DMA_Channel3_BASE;
-#endif /*_DMA_Channel3 */
+#ifdef _DMA1_Channel3
+  DMA1_Channel3 = (DMA_Channel_TypeDef *)  DMA1_Channel3_BASE;
+#endif /*_DMA1_Channel3 */
 
-#ifdef _DMA_Channel4
-  DMA_Channel4 = (DMA_Channel_TypeDef *)  DMA_Channel4_BASE;
-#endif /*_DMA_Channel4 */
+#ifdef _DMA1_Channel4
+  DMA1_Channel4 = (DMA_Channel_TypeDef *)  DMA1_Channel4_BASE;
+#endif /*_DMA1_Channel4 */
 
-#ifdef _DMA_Channel5
-  DMA_Channel5 = (DMA_Channel_TypeDef *)  DMA_Channel5_BASE;
-#endif /*_DMA_Channel5 */
+#ifdef _DMA1_Channel5
+  DMA1_Channel5 = (DMA_Channel_TypeDef *)  DMA1_Channel5_BASE;
+#endif /*_DMA1_Channel5 */
 
-#ifdef _DMA_Channel6
-  DMA_Channel6 = (DMA_Channel_TypeDef *)  DMA_Channel6_BASE;
-#endif /*_DMA_Channel6 */
+#ifdef _DMA1_Channel6
+  DMA1_Channel6 = (DMA_Channel_TypeDef *)  DMA1_Channel6_BASE;
+#endif /*_DMA1_Channel6 */
 
-#ifdef _DMA_Channel7
-  DMA_Channel7 = (DMA_Channel_TypeDef *)  DMA_Channel7_BASE;
-#endif /*_DMA_Channel7 */
+#ifdef _DMA1_Channel7
+  DMA1_Channel7 = (DMA_Channel_TypeDef *)  DMA1_Channel7_BASE;
+#endif /*_DMA1_Channel7 */
+
+#ifdef _DMA2_Channel1
+  DMA2_Channel1 = (DMA_Channel_TypeDef *)  DMA2_Channel1_BASE;
+#endif /*_DMA2_Channel1 */
+
+#ifdef _DMA2_Channel2
+  DMA2_Channel2 = (DMA_Channel_TypeDef *)  DMA2_Channel2_BASE;
+#endif /*_DMA2_Channel2 */
+
+#ifdef _DMA2_Channel3
+  DMA2_Channel3 = (DMA_Channel_TypeDef *)  DMA2_Channel3_BASE;
+#endif /*_DMA2_Channel3 */
+
+#ifdef _DMA2_Channel4
+  DMA2_Channel4 = (DMA_Channel_TypeDef *)  DMA2_Channel4_BASE;
+#endif /*_DMA2_Channel4 */
+
+#ifdef _DMA2_Channel5
+  DMA2_Channel5 = (DMA_Channel_TypeDef *)  DMA2_Channel5_BASE;
+#endif /*_DMA2_Channel5 */
 
 /************************************* EXTI ***********************************/
 #ifdef _EXTI
@@ -95,9 +135,18 @@ void debug(void)
 
 /************************************* FLASH and Option Bytes *****************/
 #ifdef _FLASH
-  FLASH = (FLASH_TypeDef *)  FLASH_BASE;
-  OB = (OB_TypeDef *)  OB_BASE;
+  FLASH = (FLASH_TypeDef *)  FLASH_R_BASE;
+  OB = (OB_TypeDef *)        OB_BASE;
 #endif /*_FLASH */
+
+/************************************* FSMC ***********************************/
+#ifdef _FSMC
+  FSMC_Bank1 = (FSMC_Bank1_TypeDef *)    FSMC_Bank1_R_BASE;
+  FSMC_Bank1E = (FSMC_Bank1E_TypeDef *)  FSMC_Bank1E_R_BASE;  
+  FSMC_Bank2 = (FSMC_Bank2_TypeDef *)    FSMC_Bank2_R_BASE; 
+  FSMC_Bank3 = (FSMC_Bank3_TypeDef *)    FSMC_Bank3_R_BASE;
+  FSMC_Bank4 = (FSMC_Bank4_TypeDef *)    FSMC_Bank4_R_BASE;
+#endif /*_FSMC */
 
 /************************************* GPIO ***********************************/
 #ifdef _GPIOA
@@ -119,6 +168,14 @@ void debug(void)
 #ifdef _GPIOE
   GPIOE = (GPIO_TypeDef *)  GPIOE_BASE;
 #endif /*_GPIOE */
+
+#ifdef _GPIOF
+  GPIOF = (GPIO_TypeDef *)  GPIOF_BASE;
+#endif /*_GPIOF */
+
+#ifdef _GPIOG
+  GPIOG = (GPIO_TypeDef *)  GPIOG_BASE;
+#endif /*_GPIOG */
 
 #ifdef _AFIO
   AFIO = (AFIO_TypeDef *)  AFIO_BASE;
@@ -159,6 +216,11 @@ void debug(void)
   RTC = (RTC_TypeDef *)  RTC_BASE;
 #endif /*_RTC */
 
+/************************************* SDIO ***********************************/
+#ifdef _SDIO
+  SDIO = (SDIO_TypeDef *)  SDIO_BASE;
+#endif /*_SDIO */
+
 /************************************* SPI ************************************/
 #ifdef _SPI1
   SPI1 = (SPI_TypeDef *)  SPI1_BASE;
@@ -168,17 +230,20 @@ void debug(void)
   SPI2 = (SPI_TypeDef *)  SPI2_BASE;
 #endif /*_SPI2 */
 
+#ifdef _SPI3
+  SPI3 = (SPI_TypeDef *)  SPI3_BASE;
+#endif /*_SPI3 */
+
 /************************************* SysTick ********************************/
 #ifdef _SysTick
   SysTick = (SysTick_TypeDef *)  SysTick_BASE;
 #endif /*_SysTick */
 
-/************************************* TIM1 ***********************************/
+/************************************* TIM ************************************/
 #ifdef _TIM1
-  TIM1 = (TIM1_TypeDef *)  TIM1_BASE;
+  TIM1 = (TIM_TypeDef *)  TIM1_BASE;
 #endif /*_TIM1 */
 
-/************************************* TIM ************************************/
 #ifdef _TIM2
   TIM2 = (TIM_TypeDef *)  TIM2_BASE;
 #endif /*_TIM2 */
@@ -190,6 +255,22 @@ void debug(void)
 #ifdef _TIM4
   TIM4 = (TIM_TypeDef *)  TIM4_BASE;
 #endif /*_TIM4 */
+
+#ifdef _TIM5
+  TIM5 = (TIM_TypeDef *)  TIM5_BASE;
+#endif /*_TIM5 */
+
+#ifdef _TIM6
+  TIM6 = (TIM_TypeDef *)  TIM6_BASE;
+#endif /*_TIM6 */
+
+#ifdef _TIM7
+  TIM7 = (TIM_TypeDef *)  TIM7_BASE;
+#endif /*_TIM7 */
+
+#ifdef _TIM8
+  TIM8 = (TIM_TypeDef *)  TIM8_BASE;
+#endif /*_TIM8 */
 
 /************************************* USART **********************************/
 #ifdef _USART1
@@ -204,6 +285,14 @@ void debug(void)
   USART3 = (USART_TypeDef *) USART3_BASE;
 #endif /*_USART3 */
 
+#ifdef _UART4
+  UART4 = (USART_TypeDef *) UART4_BASE;
+#endif /*_UART4 */
+
+#ifdef _UART5
+  UART5 = (USART_TypeDef *) UART5_BASE;
+#endif /*_UART5 */
+
 /************************************* WWDG ***********************************/
 #ifdef _WWDG
   WWDG = (WWDG_TypeDef *)  WWDG_BASE;
@@ -211,4 +300,4 @@ void debug(void)
 }
 #endif  /* DEBUG*/
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

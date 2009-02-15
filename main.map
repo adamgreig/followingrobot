@@ -1,0 +1,483 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+HSEStartUpStatus    0x1               main.o
+TIM_TimeBaseStructure
+                    0xa               main.o
+linenum             0x1               main.o
+dataptr             0x4               main.o
+sumredxptr          0x4               main.o
+I2C_InitStructure   0x10              main.o
+TIM_OCInitStructure
+                    0x10              main.o
+data                0x100             main.o
+numredptr           0x4               main.o
+GPIO_InitStructure  0x4               main.o
+SPI_InitStructure   0x12              main.o
+USART_InitStructure
+                    0x10              main.o
+numred              0x4               main.o
+EXTI_InitStructure_HD
+                    0x8               main.o
+sumredx             0x4               main.o
+NVIC_InitStructure  0x4               main.o
+DMA_InitStructure   0x2c              main.o
+EXTI_InitStructure_VD
+                    0x8               main.o
+
+Discarded input sections
+
+ .text          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .data          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .bss           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .init          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .fini          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .text          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .data          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .bss           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .init_array    0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .fini_array    0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .eh_frame      0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .jcr           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .rodata        0x00000000        0x0 main.o
+ COMMON         0x00000000        0x0 main.o
+ .text          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .data          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .bss           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .eh_frame      0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .jcr           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .text          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+ .data          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+ .bss           0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+ .init          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+ .fini          0x00000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x20000000         0x00005000         xrw
+FLASH            0x08000000         0x00020000         xr
+FLASHB1          0x00000000         0x00000000         xr
+EXTMEMB0         0x00000000         0x00000000         xr
+EXTMEMB1         0x00000000         0x00000000         xr
+EXTMEMB2         0x00000000         0x00000000         xr
+EXTMEMB3         0x00000000         0x00000000         xr
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+LOAD main.o
+START GROUP
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/libgcc.a
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/../../../../arm-none-eabi/lib/libc.a
+END GROUP
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+                0x00000400                __Stack_Size = 0x400
+                0x00000400                PROVIDE (_Stack_Size, __Stack_Size)
+                0x20004c00                __Stack_Init = (_estack - __Stack_Size)
+                0x20004c00                PROVIDE (_Stack_Init, __Stack_Init)
+                0x00000100                _Minimum_Stack_Size = 0x100
+                0x00000000                PROVIDE (Undefined_Handler, 0x0)
+                0x00000000                PROVIDE (SWI_Handler, 0x0)
+                0x00000000                PROVIDE (IRQ_Handler, 0x0)
+                0x00000000                PROVIDE (Prefetch_Handler, 0x0)
+                0x00000000                PROVIDE (Abort_Handler, 0x0)
+                0x00000000                PROVIDE (FIQ_Handler, 0x0)
+                0x00000000                PROVIDE (NMIException, 0x0)
+                0x00000000                PROVIDE (HardFaultException, 0x0)
+                0x00000000                PROVIDE (MemManageException, 0x0)
+                0x00000000                PROVIDE (BusFaultException, 0x0)
+                0x00000000                PROVIDE (UsageFaultException, 0x0)
+                0x00000000                PROVIDE (SVCHandler, 0x0)
+                0x00000000                PROVIDE (DebugMonitor, 0x0)
+                0x00000000                PROVIDE (PendSVC, 0x0)
+                0x00000000                PROVIDE (SysTickHandler, 0x0)
+                0x00000000                PROVIDE (WWDG_IRQHandler, 0x0)
+                0x00000000                PROVIDE (PVD_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TAMPER_IRQHandler, 0x0)
+                0x00000000                PROVIDE (RTC_IRQHandler, 0x0)
+                0x00000000                PROVIDE (FLASH_IRQHandler, 0x0)
+                0x00000000                PROVIDE (RCC_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI0_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI1_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI2_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI3_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI4_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel1_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel2_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel3_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel4_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel5_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel6_IRQHandler, 0x0)
+                0x00000000                PROVIDE (DMAChannel7_IRQHandler, 0x0)
+                0x00000000                PROVIDE (ADC_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USB_HP_CAN_TX_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USB_LP_CAN_RX0_IRQHandler, 0x0)
+                0x00000000                PROVIDE (CAN_RX1_IRQHandler, 0x0)
+                0x00000000                PROVIDE (CAN_SCE_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI9_5_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM1_BRK_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM1_UP_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM1_TRG_COM_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM1_CC_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM2_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM3_IRQHandler, 0x0)
+                0x00000000                PROVIDE (TIM4_IRQHandler, 0x0)
+                0x00000000                PROVIDE (I2C1_EV_IRQHandler, 0x0)
+                0x00000000                PROVIDE (I2C1_ER_IRQHandler, 0x0)
+                0x00000000                PROVIDE (I2C2_EV_IRQHandler, 0x0)
+                0x00000000                PROVIDE (I2C2_ER_IRQHandler, 0x0)
+                0x00000000                PROVIDE (SPI1_IRQHandler, 0x0)
+                0x00000000                PROVIDE (SPI2_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USART1_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USART2_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USART3_IRQHandler, 0x0)
+                0x00000000                PROVIDE (EXTI15_10_IRQHandler, 0x0)
+                0x00000000                PROVIDE (RTCAlarm_IRQHandler, 0x0)
+                0x00000000                PROVIDE (USBWakeUp_IRQHandler, 0x0)
+                0x42000000                PERIPH_BB_BASE = 0x42000000
+                0x22000000                SRAM_BB_BASE = 0x22000000
+                0x20000000                SRAM_BASE = 0x20000000
+                0x40000000                PERIPH_BASE = 0x40000000
+                0x40022000                PROVIDE (FLASH_BASE, 0x40022000)
+                0x1ffff800                PROVIDE (OB_BASE, 0x1ffff800)
+                0x40000000                APB1PERIPH_BASE = PERIPH_BASE
+                0x40010000                APB2PERIPH_BASE = (PERIPH_BASE + 0x10000)
+                0x40020000                AHBPERIPH_BASE = (PERIPH_BASE + 0x20000)
+                0x40000000                PROVIDE (TIM2, (APB1PERIPH_BASE + 0x0))
+                0x40000400                PROVIDE (TIM3, (APB1PERIPH_BASE + 0x400))
+                0x40000800                PROVIDE (TIM4, (APB1PERIPH_BASE + 0x800))
+                0x40002800                PROVIDE (RTC, (APB1PERIPH_BASE + 0x2800))
+                0x40002c00                PROVIDE (WWDG, (APB1PERIPH_BASE + 0x2c00))
+                0x40003000                PROVIDE (IWDG, (APB1PERIPH_BASE + 0x3000))
+                0x40003800                PROVIDE (SPI2, (APB1PERIPH_BASE + 0x3800))
+                0x40004400                PROVIDE (USART2, (APB1PERIPH_BASE + 0x4400))
+                0x40004800                PROVIDE (USART3, (APB1PERIPH_BASE + 0x4800))
+                0x40005400                PROVIDE (I2C1, (APB1PERIPH_BASE + 0x5400))
+                0x40005800                PROVIDE (I2C2, (APB1PERIPH_BASE + 0x5800))
+                0x40006400                PROVIDE (CAN, (APB1PERIPH_BASE + 0x6400))
+                0x40006c00                PROVIDE (BKP, (APB1PERIPH_BASE + 0x6c00))
+                0x40007000                PROVIDE (PWR, (APB1PERIPH_BASE + 0x7000))
+                0x40010000                PROVIDE (AFIO, (APB2PERIPH_BASE + 0x0))
+                0x40010400                PROVIDE (EXTI, (APB2PERIPH_BASE + 0x400))
+                0x40010800                PROVIDE (GPIOA, (APB2PERIPH_BASE + 0x800))
+                0x40010c00                PROVIDE (GPIOB, (APB2PERIPH_BASE + 0xc00))
+                0x40011000                PROVIDE (GPIOC, (APB2PERIPH_BASE + 0x1000))
+                0x40011400                PROVIDE (GPIOD, (APB2PERIPH_BASE + 0x1400))
+                0x40011800                PROVIDE (GPIOE, (APB2PERIPH_BASE + 0x1800))
+                0x40012400                PROVIDE (ADC1, (APB2PERIPH_BASE + 0x2400))
+                0x40012800                PROVIDE (ADC2, (APB2PERIPH_BASE + 0x2800))
+                0x40012c00                PROVIDE (TIM1, (APB2PERIPH_BASE + 0x2c00))
+                0x40013000                PROVIDE (SPI1, (APB2PERIPH_BASE + 0x3000))
+                0x40013800                PROVIDE (USART1, (APB2PERIPH_BASE + 0x3800))
+                0x40020000                PROVIDE (DMA, (AHBPERIPH_BASE + 0x0))
+                0x40020008                PROVIDE (DMA_Channel1, (AHBPERIPH_BASE + 0x8))
+                0x4002001c                PROVIDE (DMA_Channel2, (AHBPERIPH_BASE + 0x1c))
+                0x40020030                PROVIDE (DMA_Channel3, (AHBPERIPH_BASE + 0x30))
+                0x40020044                PROVIDE (DMA_Channel4, (AHBPERIPH_BASE + 0x44))
+                0x40020058                PROVIDE (DMA_Channel5, (AHBPERIPH_BASE + 0x58))
+                0x4002006c                PROVIDE (DMA_Channel6, (AHBPERIPH_BASE + 0x6c))
+                0x40020080                PROVIDE (DMA_Channel7, (AHBPERIPH_BASE + 0x80))
+                0x40021000                PROVIDE (RCC, (AHBPERIPH_BASE + 0x1000))
+                0xe000e000                SCS_BASE = 0xe000e000
+                0xe000e010                PROVIDE (SysTick, (SCS_BASE + 0x10))
+                0xe000e100                PROVIDE (NVIC, (SCS_BASE + 0x100))
+                0xe000ed00                PROVIDE (SCB, (SCS_BASE + 0xd00))
+                0x20005000                _estack = 0x20005000
+
+.isr_vector     0x08000000        0x0
+                0x08000000                . = ALIGN (0x4)
+ *(.isr_vector)
+                0x08000000                . = ALIGN (0x4)
+
+.flashtext      0x08000000        0x0
+                0x08000000                . = ALIGN (0x4)
+ *(.flashtext)
+                0x08000000                . = ALIGN (0x4)
+
+.text           0x08000000        0x0
+                0x08000000                . = ALIGN (0x4)
+ *(.text)
+ *(.text.*)
+ *(.rodata)
+ *(.rodata*)
+ *(.glue_7)
+ .glue_7        0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .glue_7        0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .glue_7        0x08000000        0x0 main.o
+ .glue_7        0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .glue_7        0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+ *(.glue_7t)
+ .glue_7t       0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .glue_7t       0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .glue_7t       0x08000000        0x0 main.o
+ .glue_7t       0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .glue_7t       0x08000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+                0x08000000                . = ALIGN (0x4)
+                0x08000000                _etext = .
+                0x08000000                _sidata = _etext
+
+.vfp11_veneer   0x20000000        0x0
+ .vfp11_veneer  0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .vfp11_veneer  0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .vfp11_veneer  0x20000000        0x0 main.o
+ .vfp11_veneer  0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .vfp11_veneer  0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+
+.janus_2cc_veneer
+                0x20000000        0x0
+ .janus_2cc_veneer
+                0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .janus_2cc_veneer
+                0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .janus_2cc_veneer
+                0x20000000        0x0 main.o
+ .janus_2cc_veneer
+                0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .janus_2cc_veneer
+                0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+
+.v4_bx          0x20000000        0x0
+ .v4_bx         0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .v4_bx         0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .v4_bx         0x20000000        0x0 main.o
+ .v4_bx         0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .v4_bx         0x20000000        0x0 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+
+.data           0x20000000        0x0 load address 0x08000000
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sdata = .
+ *(.data)
+ *(.data.*)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.bss            0x20000000        0x0
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _sbss = .
+ *(.bss)
+ *(COMMON)
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _ebss = .
+                0x20000000                PROVIDE (end, _ebss)
+                0x20000000                PROVIDE (_end, _ebss)
+
+._usrstack      0x20000000      0x100
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _susrstack = .
+                0x20000100                . = (. + _Minimum_Stack_Size)
+ *fill*         0x20000000      0x100 00
+                0x20000100                . = ALIGN (0x4)
+                0x20000100                _eusrstack = .
+
+.b1text
+ *(.b1text)
+ *(.b1rodata)
+ *(.b1rodata*)
+
+.eb0text
+ *(.eb0text)
+ *(.eb0rodata)
+ *(.eb0rodata*)
+
+.eb1text
+ *(.eb1text)
+ *(.eb1rodata)
+ *(.eb1rodata*)
+
+.eb2text
+ *(.eb2text)
+ *(.eb2rodata)
+ *(.eb2rodata*)
+
+.eb3text
+ *(.eb3text)
+ *(.eb3rodata)
+ *(.eb3rodata*)
+                0x20000100                __exidx_start = .
+                0x20000100                __exidx_end = .
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x2a
+ *(.comment)
+ .comment       0x00000000       0x2a main.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info .gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+OUTPUT(main elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x31
+ .ARM.attributes
+                0x00000000       0x14 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+ .ARM.attributes
+                0x00000014       0x2e /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+ .ARM.attributes
+                0x00000042       0x31 main.o
+ .ARM.attributes
+                0x00000073       0x2c /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtend.o
+ .ARM.attributes
+                0x0000009f       0x14 /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
+
+Cross Reference Table
+
+Symbol                                            File
+Clock_Config                                      main.o
+DMA_Config                                        main.o
+DMA_Init                                          main.o
+DMA_InitStructure                                 main.o
+Delay                                             main.o
+EXTI15_10_IRQHandler                              main.o
+EXTI_Config                                       main.o
+EXTI_DeInit                                       main.o
+EXTI_GetITStatus                                  main.o
+EXTI_Init                                         main.o
+EXTI_InitStructure_HD                             main.o
+EXTI_InitStructure_VD                             main.o
+FLASH_PrefetchBufferCmd                           main.o
+FLASH_SetLatency                                  main.o
+GPIO_Config                                       main.o
+GPIO_EXTILineConfig                               main.o
+GPIO_Init                                         main.o
+GPIO_InitStructure                                main.o
+GPIO_SetBits                                      main.o
+GPIO_WriteBit                                     main.o
+HSEStartUpStatus                                  main.o
+I2C_Cmd                                           main.o
+I2C_Config                                        main.o
+I2C_Init                                          main.o
+I2C_InitStructure                                 main.o
+NVIC_Config                                       main.o
+NVIC_Init                                         main.o
+NVIC_InitStructure                                main.o
+NVIC_SetVectorTable                               main.o
+RCC_AHBPeriphClockCmd                             main.o
+RCC_APB1PeriphClockCmd                            main.o
+RCC_APB2PeriphClockCmd                            main.o
+RCC_DeInit                                        main.o
+RCC_GetFlagStatus                                 main.o
+RCC_GetSYSCLKSource                               main.o
+RCC_HCLKConfig                                    main.o
+RCC_HSEConfig                                     main.o
+RCC_PCLK1Config                                   main.o
+RCC_PCLK2Config                                   main.o
+RCC_PLLCmd                                        main.o
+RCC_PLLConfig                                     main.o
+RCC_SYSCLKConfig                                  main.o
+RCC_WaitForHSEStartUp                             main.o
+SPI_Cmd                                           main.o
+SPI_Config                                        main.o
+SPI_Init                                          main.o
+SPI_InitStructure                                 main.o
+TIM_Cmd                                           main.o
+TIM_Config                                        main.o
+TIM_CtrlPWMOutputs                                main.o
+TIM_OC1Init                                       main.o
+TIM_OCInitStructure                               main.o
+TIM_TimeBaseInit                                  main.o
+TIM_TimeBaseStructure                             main.o
+USART_Cmd                                         main.o
+USART_Config                                      main.o
+USART_Init                                        main.o
+USART_InitStructure                               main.o
+_Jv_RegisterClasses                               /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+__deregister_frame_info                           /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+__dso_handle                                      /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+__register_frame_info                             /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtbegin.o
+_fini                                             /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+_init                                             /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crti.o
+cam_init                                          main.o
+data                                              main.o
+dataptr                                           main.o
+flash_eyes                                        main.o
+lcd_enddata                                       main.o
+lcd_initialise                                    main.o
+lcd_startdata                                     main.o
+linenum                                           main.o
+main                                              main.o
+numred                                            main.o
+numredptr                                         main.o
+oled_autobaudrate                                 main.o
+oled_erase_screen                                 main.o
+oled_formatted_string                             main.o
+oled_rectangle                                    main.o
+oled_set_background_colour                        main.o
+sumredx                                           main.o
+sumredxptr                                        main.o

@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_flash.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the FLASH firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -167,7 +167,7 @@ void FLASH_Lock(void)
 * Input          : - Page_Address: The page address to be erased.
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_ErasePage(u32 Page_Address)
@@ -206,7 +206,7 @@ FLASH_Status FLASH_ErasePage(u32 Page_Address)
 * Input          : None
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_EraseAllPages(void)
@@ -241,7 +241,7 @@ FLASH_Status FLASH_EraseAllPages(void)
 * Input          : None
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_EraseOptionBytes(void)
@@ -304,7 +304,7 @@ FLASH_Status FLASH_EraseOptionBytes(void)
 *                  - Data: specifies the data to be programmed.
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT. 
 *******************************************************************************/
 FLASH_Status FLASH_ProgramWord(u32 Address, u32 Data)
@@ -363,7 +363,7 @@ FLASH_Status FLASH_ProgramWord(u32 Address, u32 Data)
 *                  - Data: specifies the data to be programmed.
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT. 
 *******************************************************************************/
 FLASH_Status FLASH_ProgramHalfWord(u32 Address, u16 Data)
@@ -403,7 +403,7 @@ FLASH_Status FLASH_ProgramHalfWord(u32 Address, u16 Data)
 *                  - Data: specifies the data to be programmed.
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT. 
 *******************************************************************************/
 FLASH_Status FLASH_ProgramOptionByteData(u32 Address, u8 Data)
@@ -443,12 +443,16 @@ FLASH_Status FLASH_ProgramOptionByteData(u32 Address, u8 Data)
 * Description    : Write protects the desired pages
 * Input          : - FLASH_Pages: specifies the address of the pages to be 
 *                    write protected. This parameter can be:
-*                    - A value between FLASH_WRProt_Pages0to3 and 
-*                      FLASH_WRProt_Pages124to127 
-*                    - FLASH_WRProt_AllPages
+*                    - For STM32F10Xxx Medium-density devices (FLASH page size equal to 1 KB)
+*                       - A value between FLASH_WRProt_Pages0to3 and 
+*                         FLASH_WRProt_Pages124to127
+*                    - For STM32F10Xxx High-density devices (FLASH page size equal to 2 KB) 
+*                       - A value between FLASH_WRProt_Pages0to1 and
+*                         FLASH_WRProt_Pages60to61 or FLASH_WRProt_Pages62to255 
+*                       - FLASH_WRProt_AllPages
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_EnableWriteProtection(u32 FLASH_Pages)
@@ -527,7 +531,7 @@ FLASH_Status FLASH_EnableWriteProtection(u32 FLASH_Pages)
 *                    This parameter can be: ENABLE or DISABLE.
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_ReadOutProtection(FunctionalState NewState)
@@ -608,7 +612,7 @@ FLASH_Status FLASH_ReadOutProtection(FunctionalState NewState)
 *                     - OB_STDBY_RST: Reset generated when entering in STANDBY
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_UserOptionByteConfig(u16 OB_IWDG, u16 OB_STOP, u16 OB_STDBY)
@@ -822,7 +826,7 @@ void FLASH_ClearFlag(u16 FLASH_FLAG)
 * Input          : None
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP or FLASH_COMPLETE
 *******************************************************************************/
 FLASH_Status FLASH_GetStatus(void)
 {
@@ -860,7 +864,7 @@ FLASH_Status FLASH_GetStatus(void)
 * Input          : - Timeout: FLASH progamming Timeout
 * Output         : None
 * Return         : FLASH Status: The returned value can be: FLASH_BUSY, 
-*                  FLASH_ERROR_PG or FLASH_ERROR_WRP or FLASH_COMPLETE or 
+*                  FLASH_ERROR_PG, FLASH_ERROR_WRP, FLASH_COMPLETE or 
 *                  FLASH_TIMEOUT.
 *******************************************************************************/
 FLASH_Status FLASH_WaitForLastOperation(u32 Timeout)
@@ -904,4 +908,4 @@ static void delay(void)
 }
 #endif
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

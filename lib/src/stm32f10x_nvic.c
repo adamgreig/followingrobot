@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_nvic.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the NVIC firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -38,11 +38,11 @@ void NVIC_DeInit(void)
   u32 index = 0;
   
   NVIC->ICER[0] = 0xFFFFFFFF;
-  NVIC->ICER[1] = 0x000007FF;
+  NVIC->ICER[1] = 0x0FFFFFFF;
   NVIC->ICPR[0] = 0xFFFFFFFF;
-  NVIC->ICPR[1] = 0x000007FF;
+  NVIC->ICPR[1] = 0x0FFFFFFF;
   
-  for(index = 0; index < 0x0B; index++)
+  for(index = 0; index < 0x0F; index++)
   {
      NVIC->IPR[index] = 0x00000000;
   } 
@@ -225,7 +225,8 @@ void NVIC_RESETFAULTMASK(void)
 /*******************************************************************************
 * Function Name  : NVIC_BASEPRICONFIG
 * Description    : The execution priority can be changed from 15 (lowest 
-                   configurable priority) to 1.
+                   configurable priority) to 1. Writing a zero  value will disable 
+*                  the mask of execution priority.
 * Input          : None
 * Output         : None
 * Return         : None
@@ -303,7 +304,7 @@ void NVIC_SetIRQChannelPendingBit(u8 NVIC_IRQChannel)
   /* Check the parameters */
   assert_param(IS_NVIC_IRQ_CHANNEL(NVIC_IRQChannel));
   
-  *(u32*)0xE000EF00 = (u32)NVIC_IRQChannel;
+  *(vu32*) 0xE000EF00 = (u32)NVIC_IRQChannel;
 }
 
 /*******************************************************************************
@@ -747,4 +748,4 @@ u32 NVIC_GetFaultAddress(u32 SystemHandler)
   return faultaddress;
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

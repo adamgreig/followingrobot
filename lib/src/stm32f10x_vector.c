@@ -1,115 +1,73 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_vector.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
-* Description        : This file contains the vector table for STM32F10x.
+* Version            : V2.0.3
+* Date               : 09/22/2008
+* Description        : STM32F10x vector table for RIDE7 toolchain.
+*                      This module performs:
+*                      - Set the initial SP
+*                      - Set the initial PC == Reset_Handler,
+*                      - Set the vector table entries with the exceptions ISR address,
+*                      - Configure external SRAM mounted on STM3210E-EVAL board
+*                       to be used as data memory (optional, to be enabled by user)
+*                      - Branches to main in the C library (which eventually
+*                        calls main()).
 *                      After Reset the Cortex-M3 processor is in Thread mode,
 *                      priority is Privileged, and the Stack is set to Main.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
-
 /* Includes ------------------------------------------------------------------*/
-
-void NMIException(void);
-void HardFaultException(void);
-void MemManageException(void);
-void BusFaultException(void);
-void UsageFaultException(void);
-void DebugMonitor(void);
-void SVCHandler(void);
-void PendSVC(void);
-void SysTickHandler(void);
-void WWDG_IRQHandler(void);
-void PVD_IRQHandler(void);
-void TAMPER_IRQHandler(void);
-void RTC_IRQHandler(void);
-void FLASH_IRQHandler(void);
-void RCC_IRQHandler(void);
-void EXTI0_IRQHandler(void);
-void EXTI1_IRQHandler(void);
-void EXTI2_IRQHandler(void);
-void EXTI3_IRQHandler(void);
-void EXTI4_IRQHandler(void);
-void DMAChannel1_IRQHandler(void);
-void DMAChannel2_IRQHandler(void);
-void DMAChannel3_IRQHandler(void);
-void DMAChannel4_IRQHandler(void);
-void DMAChannel5_IRQHandler(void);
-void DMAChannel6_IRQHandler(void);
-void DMAChannel7_IRQHandler(void);
-void ADC_IRQHandler(void);
-void USB_HP_CAN_TX_IRQHandler(void);
-void USB_LP_CAN_RX0_IRQHandler(void);
-void CAN_RX1_IRQHandler(void);
-void CAN_SCE_IRQHandler(void);
-void EXTI9_5_IRQHandler(void);
-void TIM1_BRK_IRQHandler(void);
-void TIM1_UP_IRQHandler(void);
-void TIM1_TRG_COM_IRQHandler(void);
-void TIM1_CC_IRQHandler(void);
-void TIM2_IRQHandler(void);
-void TIM3_IRQHandler(void);
-void TIM4_IRQHandler(void);
-void I2C1_EV_IRQHandler(void);
-void I2C1_ER_IRQHandler(void);
-void I2C2_EV_IRQHandler(void);
-void I2C2_ER_IRQHandler(void);
-void SPI1_IRQHandler(void);
-void SPI2_IRQHandler(void);
-void USART1_IRQHandler(void);
-void USART2_IRQHandler(void);
-void USART3_IRQHandler(void);
-void EXTI15_10_IRQHandler(void);
-void RTCAlarm_IRQHandler(void);
-void USBWakeUp_IRQHandler(void);
-
-
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-extern unsigned long _etext;
-extern unsigned long _sidata;		/* start address for the initialization values
-                                   of the .data section. defined in linker script */
-extern unsigned long _sdata;		/* start address for the .data section. defined
-                                   in linker script */
-extern unsigned long _edata;		/* end address for the .data section. defined in
-                                   linker script */
-
-extern unsigned long _sbss;			/* start address for the .bss section. defined
-                                   in linker script */
-extern unsigned long _ebss;			/* end address for the .bss section. defined in
-                                   linker script */
-
-extern void _estack;		/* init value for the stack pointer. defined in linker script */
-
-
+#include "stm32f10x_lib.h"
+#include "stm32f10x_it.h"
 
 /* Private typedef -----------------------------------------------------------*/
-/* function prototypes -------------------------------------------------------*/
+typedef void( *intfunc )( void );
+typedef union { intfunc __fun; void * __ptr; } intvec_elem;
+
+/* Private define ------------------------------------------------------------*/
+/* Uncomment the following line if you need to use external SRAM mounted on
+   STM3210E-EVAL board as data memory */
+   
+/* #define DATA_IN_ExtSRAM */ 
+
+/* Private macro -------------------------------------------------------------*/
+extern unsigned long _etext;
+/* start address for the initialization values of the .data section. 
+defined in linker script */
+extern unsigned long _sidata;
+
+/* start address for the .data section. defined in linker script */		
+extern unsigned long _sdata;
+
+/* end address for the .data section. defined in linker script */		
+extern unsigned long _edata;
+		
+/* start address for the .bss section. defined in linker script */
+extern unsigned long _sbss;
+
+/* end address for the .bss section. defined in linker script */			
+extern unsigned long _ebss;	
+		
+/* init value for the stack pointer. defined in linker script */
+extern void _estack;	
+	
+/* Private variables ---------------------------------------------------------*/
+/* Private function prototypes -----------------------------------------------*/
 void Reset_Handler(void) __attribute__((__interrupt__));
 extern int main(void);
-
-
-/*******************************************************************************
-*
-* The minimal vector table for a Cortex M3.  Note that the proper constructs
-* must be placed on this to ensure that it ends up at physical address
-* 0x0000.0000.
-*
-*******************************************************************************/
-
+/* Private functions ---------------------------------------------------------*/
 
 __attribute__ ((section(".isr_vector")))
 void (* const g_pfnVectors[])(void) =
 {
-  &_estack,            // The initial stack pointer
-  Reset_Handler,             // The reset handler
+  &_estack,            /* The initial stack pointer*/
+  Reset_Handler,             /* The reset handler*/
   NMIException,
   HardFaultException,
   MemManageException,
@@ -132,14 +90,14 @@ void (* const g_pfnVectors[])(void) =
   EXTI2_IRQHandler,
   EXTI3_IRQHandler,
   EXTI4_IRQHandler,
-  DMAChannel1_IRQHandler,
-  DMAChannel2_IRQHandler,
-  DMAChannel3_IRQHandler,
-  DMAChannel4_IRQHandler,
-  DMAChannel5_IRQHandler,
-  DMAChannel6_IRQHandler,
-  DMAChannel7_IRQHandler,
-  ADC_IRQHandler,
+  DMA1_Channel1_IRQHandler,
+  DMA1_Channel2_IRQHandler,
+  DMA1_Channel3_IRQHandler,
+  DMA1_Channel4_IRQHandler,
+  DMA1_Channel5_IRQHandler,
+  DMA1_Channel6_IRQHandler,
+  DMA1_Channel7_IRQHandler,
+  ADC1_2_IRQHandler,
   USB_HP_CAN_TX_IRQHandler,
   USB_LP_CAN_RX0_IRQHandler,
   CAN_RX1_IRQHandler,
@@ -164,14 +122,23 @@ void (* const g_pfnVectors[])(void) =
   EXTI15_10_IRQHandler,
   RTCAlarm_IRQHandler,
   USBWakeUp_IRQHandler,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  0,
-  (unsigned short)0xF108F85F //this is a workaround for boot in RAM mode.
+  TIM8_BRK_IRQHandler,
+  TIM8_UP_IRQHandler,
+  TIM8_TRG_COM_IRQHandler,
+  TIM8_CC_IRQHandler,
+  ADC3_IRQHandler,
+  FSMC_IRQHandler,
+  SDIO_IRQHandler,
+  TIM5_IRQHandler,
+  SPI3_IRQHandler,
+  UART4_IRQHandler,
+  UART5_IRQHandler,
+  TIM6_IRQHandler,
+  TIM7_IRQHandler,
+  DMA2_Channel1_IRQHandler,
+  DMA2_Channel2_IRQHandler,
+  DMA2_Channel3_IRQHandler,
+  DMA2_Channel4_5_IRQHandler,  
 };
 
 /*******************************************************************************
@@ -186,32 +153,63 @@ void (* const g_pfnVectors[])(void) =
 *******************************************************************************/
 void Reset_Handler(void)
 {
-    unsigned long *pulSrc, *pulDest;
+unsigned long *pulSrc, *pulDest;
 
-    //
-    // Copy the data segment initializers from flash to SRAM.
-    //
+#ifdef DATA_IN_ExtSRAM
+
+/* FSMC Bank1 NOR/SRAM3 is used for the STM3210E-EVAL, if another Bank is 
+  required, then adjust the Register Addresses*/
+
+  /* Enable FSMC clock */
+  *(vu32 *)0x40021014 = 0x00000114;
+  
+  /* Enable GPIOD, GPIOE, GPIOF and GPIOG clocks */  
+  *(vu32 *)0x40021018 = 0x000001E0;
+  
+/* ---------------  SRAM Data lines, NOE and NWE configuration ---------------*/
+/*----------------  SRAM Address lines configuration -------------------------*/
+/*----------------  NOE and NWE configuration --------------------------------*/  
+/*----------------  NE3 configuration ----------------------------------------*/
+/*----------------  NBL0, NBL1 configuration ---------------------------------*/
+  
+  *(vu32 *)0x40011400 = 0x44BB44BB;
+  *(vu32 *)0x40011404 = 0xBBBBBBBB;
+  
+  *(vu32 *)0x40011800 = 0xB44444BB;
+  *(vu32 *)0x40011804 = 0xBBBBBBBB;
+   
+  *(vu32 *)0x40011C00 = 0x44BBBBBB;
+  *(vu32 *)0x40011C04 = 0xBBBB4444;  
+
+  *(vu32 *)0x40012000 = 0x44BBBBBB;
+  *(vu32 *)0x40012004 = 0x44444B44;
+  
+/*----------------  FSMC Configuration ---------------------------------------*/  
+/*----------------  Enable FSMC Bank1_SRAM Bank ------------------------------*/
+  
+  *(vu32 *)0xA0000010 = 0x00001011;
+  *(vu32 *)0xA0000014 = 0x00000200;
+    
+#endif /*DATA_IN_ExtSRAM*/
+
+
+/* Copy the data segment initializers from flash to SRAM */
     pulSrc = &_sidata;
     for(pulDest = &_sdata; pulDest < &_edata; )
     {
         *(pulDest++) = *(pulSrc++);
     }
-
-    //
-    // Zero fill the bss segment.
-    //
+/* Zero fill the bss segment.  */
     for(pulDest = &_sbss; pulDest < &_ebss; )
     {
         *(pulDest++) = 0;
     }
 
-    //
-    // Call the application's entry point.
-    //
+/* Call the application's entry point.*/
     main();
 }
 
 
-/****************** (C) COPYRIGHT 2007 STMicroelectronics  *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/
 
 

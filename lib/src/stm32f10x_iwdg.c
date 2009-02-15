@@ -1,15 +1,15 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_iwdg.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file provides all the IWDG firmware functions.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -20,8 +20,8 @@
 /* Private define ------------------------------------------------------------*/
 /* ---------------------- IWDG registers bit mask ------------------------ */
 /* KR register bit mask */
-#define KR_Reload    ((u16)0xAAAA)
-#define KR_Enable    ((u16)0xCCCC)
+#define KR_KEY_Reload    ((u16)0xAAAA)
+#define KR_KEY_Enable    ((u16)0xCCCC)
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -99,7 +99,7 @@ void IWDG_SetReload(u16 Reload)
 *******************************************************************************/
 void IWDG_ReloadCounter(void)
 {
-  IWDG->KR = KR_Reload;
+  IWDG->KR = KR_KEY_Reload;
 }
 
 /*******************************************************************************
@@ -112,7 +112,7 @@ void IWDG_ReloadCounter(void)
 *******************************************************************************/
 void IWDG_Enable(void)
 {
-  IWDG->KR = KR_Enable;
+  IWDG->KR = KR_KEY_Enable;
 }
 
 /*******************************************************************************
@@ -145,4 +145,4 @@ FlagStatus IWDG_GetFlagStatus(u16 IWDG_FLAG)
   return bitstatus;
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

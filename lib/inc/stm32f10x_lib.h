@@ -1,16 +1,16 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_lib.h
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file includes the peripherals header files in the
 *                      user application.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -33,6 +33,18 @@
   #include "stm32f10x_can.h"
 #endif /*_CAN */
 
+#ifdef _CRC
+  #include "stm32f10x_crc.h"
+#endif /*_CRC */
+
+#ifdef _DAC
+  #include "stm32f10x_dac.h"
+#endif /*_DAC */
+
+#ifdef _DBGMCU
+  #include "stm32f10x_dbgmcu.h"
+#endif /*_DBGMCU */
+
 #ifdef _DMA
   #include "stm32f10x_dma.h"
 #endif /*_DMA */
@@ -44,6 +56,10 @@
 #ifdef _FLASH
   #include "stm32f10x_flash.h"
 #endif /*_FLASH */
+
+#ifdef _FSMC
+  #include "stm32f10x_fsmc.h"
+#endif /*_FSMC */
 
 #ifdef _GPIO
   #include "stm32f10x_gpio.h"
@@ -73,6 +89,10 @@
   #include "stm32f10x_rtc.h"
 #endif /*_RTC */
 
+#ifdef _SDIO
+  #include "stm32f10x_sdio.h"
+#endif /*_SDIO */
+
 #ifdef _SPI
   #include "stm32f10x_spi.h"
 #endif /*_SPI */
@@ -80,10 +100,6 @@
 #ifdef _SysTick
   #include "stm32f10x_systick.h"
 #endif /*_SysTick */
-
-#ifdef _TIM1
-  #include "stm32f10x_tim1.h"
-#endif /*_TIM1 */
 
 #ifdef _TIM
   #include "stm32f10x_tim.h"
@@ -105,4 +121,4 @@ void debug(void);
 
 #endif /* __STM32F10x_LIB_H */
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

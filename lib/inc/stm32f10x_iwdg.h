@@ -1,16 +1,16 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_iwdg.h
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.3
+* Date               : 09/22/2008
 * Description        : This file contains all the functions prototypes for the
 *                      IWDG firmware library.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -27,8 +27,8 @@
 #define IWDG_WriteAccess_Enable     ((u16)0x5555)
 #define IWDG_WriteAccess_Disable    ((u16)0x0000)
 
-#define IS_IWDG_WRITE_ACCESS(ACCESS) ((ACCESS == IWDG_WriteAccess_Enable) || \
-                                      (ACCESS == IWDG_WriteAccess_Disable))
+#define IS_IWDG_WRITE_ACCESS(ACCESS) (((ACCESS) == IWDG_WriteAccess_Enable) || \
+                                      ((ACCESS) == IWDG_WriteAccess_Disable))
 
 /* IWDG prescaler */
 #define IWDG_Prescaler_4            ((u8)0x00)
@@ -39,21 +39,21 @@
 #define IWDG_Prescaler_128          ((u8)0x05)
 #define IWDG_Prescaler_256          ((u8)0x06)
 
-#define IS_IWDG_PRESCALER(PRESCALER) ((PRESCALER == IWDG_Prescaler_4)  || \
-                                      (PRESCALER == IWDG_Prescaler_8)  || \
-                                      (PRESCALER == IWDG_Prescaler_16) || \
-                                      (PRESCALER == IWDG_Prescaler_32) || \
-                                      (PRESCALER == IWDG_Prescaler_64) || \
-                                      (PRESCALER == IWDG_Prescaler_128)|| \
-                                      (PRESCALER == IWDG_Prescaler_256))
+#define IS_IWDG_PRESCALER(PRESCALER) (((PRESCALER) == IWDG_Prescaler_4)  || \
+                                      ((PRESCALER) == IWDG_Prescaler_8)  || \
+                                      ((PRESCALER) == IWDG_Prescaler_16) || \
+                                      ((PRESCALER) == IWDG_Prescaler_32) || \
+                                      ((PRESCALER) == IWDG_Prescaler_64) || \
+                                      ((PRESCALER) == IWDG_Prescaler_128)|| \
+                                      ((PRESCALER) == IWDG_Prescaler_256))
 
 /* IWDG Flag */
 #define IWDG_FLAG_PVU               ((u16)0x0001)
 #define IWDG_FLAG_RVU               ((u16)0x0002)
 
-#define IS_IWDG_FLAG(FLAG) ((FLAG == IWDG_FLAG_PVU) || (FLAG == IWDG_FLAG_RVU))
+#define IS_IWDG_FLAG(FLAG) (((FLAG) == IWDG_FLAG_PVU) || ((FLAG) == IWDG_FLAG_RVU))
 
-#define IS_IWDG_RELOAD(RELOAD) (RELOAD <= 0xFFF)
+#define IS_IWDG_RELOAD(RELOAD) ((RELOAD) <= 0xFFF)
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -66,4 +66,4 @@ FlagStatus IWDG_GetFlagStatus(u16 IWDG_FLAG);
 
 #endif /* __STM32F10x_IWDG_H */
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/

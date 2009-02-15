@@ -34,8 +34,8 @@ all: $(MAIN_OUT_ELF) $(MAIN_OUT_BIN)
 
 # main
 
-$(MAIN_OUT_ELF): main.o stm32f10x_it.o lib/libstm32.a
-	$(LD) $(LDFLAGS) main.o stm32f10x_it.o lib/libstm32.a --output $@
+$(MAIN_OUT_ELF): main.o lcd.o oled.o cam.o stm32f10x_it.o lib/libstm32.a
+	$(LD) $(LDFLAGS) main.o lcd.o oled.o cam.o stm32f10x_it.o lib/libstm32.a --output $@
 
 $(MAIN_OUT_BIN): $(MAIN_OUT_ELF)
 	$(OBJCP) $(OBJCPFLAGS) $< $@
@@ -63,7 +63,7 @@ LIBSTM32_OBJS = \
  lib/src/stm32f10x_nvic.o \
  lib/src/stm32f10x_rcc.o \
  lib/src/stm32f10x_spi.o \
- lib/src/stm32f10x_tim1.o \
+ lib/src/stm32f10x_tim.o \
  lib/src/stm32f10x_usart.o \
  lib/src/cortexm3_macro.o \
  lib/src/stm32f10x_vector.o

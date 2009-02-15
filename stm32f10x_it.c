@@ -1,21 +1,17 @@
-/******************** (C) COPYRIGHT 2007 STMicroelectronics ********************
+/******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : stm32f10x_it.c
 * Author             : MCD Application Team
-* Version            : V1.0
-* Date               : 10/08/2007
+* Version            : V2.0.2
+* Date               : 07/11/2008
 * Description        : Main Interrupt Service Routines.
-*                      This file can be used to describe all the exceptions 
-*                      subroutines that may occur within user application.
-*                      When an interrupt happens, the software will branch 
-*                      automatically to the corresponding routine.
-*                      The following routines are all empty, user can write code 
-*                      for exceptions handlers and peripherals IRQ interrupts.
+*                      This file provides template for all exceptions handler
+*                      and peripherals interrupt service routine.
 ********************************************************************************
-* THE PRESENT SOFTWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+* THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
 * AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY DIRECT,
 * INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING FROM THE
-* CONTENT OF SUCH SOFTWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
+* CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE CODING
 * INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
 *******************************************************************************/
 
@@ -168,7 +164,7 @@ void PVD_IRQHandler(void)
 
 /*******************************************************************************
 * Function Name  : TAMPER_IRQHandler
-* Description    : This function handles Tamper interrupt request. 
+* Description    : This function handles Tamper interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
@@ -201,7 +197,7 @@ void FLASH_IRQHandler(void)
 
 /*******************************************************************************
 * Function Name  : RCC_IRQHandler
-* Description    : This function handles RCC interrupt request. 
+* Description    : This function handles RCC interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
@@ -266,96 +262,96 @@ void EXTI4_IRQHandler(void)
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel1_IRQHandler
-* Description    : This function handles DMA Stream 1 interrupt request.
+* Function Name  : DMA1_Channel1_IRQHandler
+* Description    : This function handles DMA1 Channel 1 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel1_IRQHandler(void)
+void DMA1_Channel1_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel2_IRQHandler
-* Description    : This function handles DMA Stream 2 interrupt request.
+* Function Name  : DMA1_Channel2_IRQHandler
+* Description    : This function handles DMA1 Channel 2 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel2_IRQHandler(void)
+void DMA1_Channel2_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel3_IRQHandler
-* Description    : This function handles DMA Stream 3 interrupt request.
+* Function Name  : DMA1_Channel3_IRQHandler
+* Description    : This function handles DMA1 Channel 3 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel3_IRQHandler(void)
+void DMA1_Channel3_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel4_IRQHandler
-* Description    : This function handles DMA Stream 4 interrupt request.
+* Function Name  : DMA1_Channel4_IRQHandler
+* Description    : This function handles DMA1 Channel 4 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel4_IRQHandler(void)
+void DMA1_Channel4_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel5_IRQHandler
-* Description    : This function handles DMA Stream 5 interrupt request.
+* Function Name  : DMA1_Channel5_IRQHandler
+* Description    : This function handles DMA1 Channel 5 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel5_IRQHandler(void)
+void DMA1_Channel5_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel6_IRQHandler
-* Description    : This function handles DMA Stream 6 interrupt request.
+* Function Name  : DMA1_Channel6_IRQHandler
+* Description    : This function handles DMA1 Channel 6 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel6_IRQHandler(void)
+void DMA1_Channel6_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : DMAChannel7_IRQHandler
-* Description    : This function handles DMA Stream 7 interrupt request.
+* Function Name  : DMA1_Channel7_IRQHandler
+* Description    : This function handles DMA1 Channel 7 interrupt request.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void DMAChannel7_IRQHandler(void)
+void DMA1_Channel7_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
-* Function Name  : ADC_IRQHandler
-* Description    : This function handles ADC global interrupt request.
+* Function Name  : ADC1_2_IRQHandler
+* Description    : This function handles ADC1 and ADC2 global interrupts requests.
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void ADC_IRQHandler(void)
+void ADC1_2_IRQHandler(void)
 {
 }
 
 /*******************************************************************************
 * Function Name  : USB_HP_CAN_TX_IRQHandler
-* Description    : This function handles USB High Priority or CAN TX interrupts 
+* Description    : This function handles USB High Priority or CAN TX interrupts
 *                  requests.
 * Input          : None
 * Output         : None
@@ -367,7 +363,7 @@ void USB_HP_CAN_TX_IRQHandler(void)
 
 /*******************************************************************************
 * Function Name  : USB_LP_CAN_RX0_IRQHandler
-* Description    : This function handles USB Low Priority or CAN RX0 interrupts 
+* Description    : This function handles USB Low Priority or CAN RX0 interrupts
 *                  requests.
 * Input          : None
 * Output         : None
@@ -423,7 +419,7 @@ void TIM1_BRK_IRQHandler(void)
 
 /*******************************************************************************
 * Function Name  : TIM1_UP_IRQHandler
-* Description    : This function handles TIM1 overflow and update interrupt 
+* Description    : This function handles TIM1 overflow and update interrupt
 *                  request.
 * Input          : None
 * Output         : None
@@ -435,7 +431,7 @@ void TIM1_UP_IRQHandler(void)
 
 /*******************************************************************************
 * Function Name  : TIM1_TRG_COM_IRQHandler
-* Description    : This function handles TIM1 Trigger and commutation interrupts 
+* Description    : This function handles TIM1 Trigger and commutation interrupts
 *                  requests.
 * Input          : None
 * Output         : None
@@ -595,9 +591,9 @@ void USART3_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void EXTI15_10_IRQHandler(void)
-{
-}
+//void EXTI15_10_IRQHandler(void)
+//{
+//}
 
 /*******************************************************************************
 * Function Name  : RTCAlarm_IRQHandler
@@ -621,4 +617,194 @@ void USBWakeUp_IRQHandler(void)
 {
 }
 
-/******************* (C) COPYRIGHT 2007 STMicroelectronics *****END OF FILE****/
+/*******************************************************************************
+* Function Name  : TIM8_BRK_IRQHandler
+* Description    : This function handles TIM8 Break interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM8_BRK_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM8_UP_IRQHandler
+* Description    : This function handles TIM8 overflow and update interrupt
+*                  request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM8_UP_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM8_TRG_COM_IRQHandler
+* Description    : This function handles TIM8 Trigger and commutation interrupts
+*                  requests.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM8_TRG_COM_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM8_CC_IRQHandler
+* Description    : This function handles TIM8 capture compare interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM8_CC_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : ADC3_IRQHandler
+* Description    : This function handles ADC3 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void ADC3_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : FSMC_IRQHandler
+* Description    : This function handles FSMC global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void FSMC_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : SDIO_IRQHandler
+* Description    : This function handles SDIO global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SDIO_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM5_IRQHandler
+* Description    : This function handles TIM5 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM5_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : SPI3_IRQHandler
+* Description    : This function handles SPI3 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void SPI3_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : UART4_IRQHandler
+* Description    : This function handles UART4 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void UART4_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : UART5_IRQHandler
+* Description    : This function handles UART5 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void UART5_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM6_IRQHandler
+* Description    : This function handles TIM6 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM6_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : TIM7_IRQHandler
+* Description    : This function handles TIM7 global interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void TIM7_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : DMA2_Channel1_IRQHandler
+* Description    : This function handles DMA2 Channel 1 interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void DMA2_Channel1_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : DMA2_Channel2_IRQHandler
+* Description    : This function handles DMA2 Channel 2 interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void DMA2_Channel2_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : DMA2_Channel3_IRQHandler
+* Description    : This function handles DMA2 Channel 3 interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void DMA2_Channel3_IRQHandler(void)
+{
+}
+
+/*******************************************************************************
+* Function Name  : DMA2_Channel4_5_IRQHandler
+* Description    : This function handles DMA2 Channel 4 and DMA2 Channel 5
+*                  interrupt request.
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+void DMA2_Channel4_5_IRQHandler(void)
+{
+}
+
+/******************* (C) COPYRIGHT 2008 STMicroelectronics *****END OF FILE****/
