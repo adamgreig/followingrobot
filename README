@@ -1,27 +1,27 @@
 ###################################################################
 ###################################################################
-### FollowingRobot						###
-### An ARM Cortex-M3 based robot, using a small digital		###
-### camera module from SparkFun to process image data,		###
-### with the goal of tracking the user and following		###
-### them. Motion is obtained with two modified servos.		###
-###								###
-### This project is an A2 coursework for Design and 		###
-### Technology: Systems and Control, AQA.			###
-###								###
-### Author:	Adam Greig <adam@adamgreig.com>			###
-### Date:	Academic Year 2008/09				###
-### License:	See individual files. Library code		###
-###	by ST Microelectronics, see files for further		###
-###	details. Linker scripts by RAISONANCE, see files	###
-###	for further details.					###
-###	Some linker scripts, makefile and			###
-###	startup scripts by 'Lanchon' of the ST forums,		###
-###	released into the public domain. Modifications		###
-###	by Martin Thomas.					###
-###	Application code by Adam Greig, released under		###
-###	the Creative Commons 2.0 Attribution Share-Alike	###
-###	No-Commercial license England & Wales, see 		###
-###	http://creativecommons.org/licenses/by-nc-sa/2.0/uk/	###
-###								###
+### FollowingRobot						
+### An ARM Cortex-M3 based robot, using a small digital		
+### camera module from SparkFun to process image data,		
+### with the goal of tracking the user and following		
+### them. Motion is obtained with two modified servos.		
+###								
+### This project is an A2 coursework for Design and 		
+### Technology: Systems and Control, AQA.			
+###								
+### Author:	Adam Greig <adam@adamgreig.com>			
+### Date:	Academic Year 2008/09				
+### License:	See individual files. Library code		
+###	by ST Microelectronics, see files for further		
+###	details. Linker scripts by RAISONANCE, see files	
+###	for further details.					
+###	Some linker scripts, makefile and			
+###	startup scripts by 'Lanchon' of the ST forums,		
+###	released into the public domain. Modifications		
+###	by Martin Thomas.					
+###	Application code by Adam Greig, released under		
+###	the Creative Commons 2.0 Attribution Share-Alike	
+###	No-Commercial license England & Wales, see 		
+###	http://creativecommons.org/licenses/by-nc-sa/2.0/uk/	
+###								
 ###################################################################
