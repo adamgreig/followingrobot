@@ -343,29 +343,41 @@ LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges
+.debug_aranges  0x00000000       0x20
  *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 main.o
 
 .debug_pubnames
+                0x00000000      0x233
  *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000      0x233 main.o
 
-.debug_info
+.debug_info     0x00000000      0xe42
  *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0xe42 main.o
 
-.debug_abbrev
+.debug_abbrev   0x00000000      0x17f
  *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x17f main.o
 
-.debug_line
+.debug_line     0x00000000      0x1fd
  *(.debug_line)
+ .debug_line    0x00000000      0x1fd main.o
 
-.debug_frame
+.debug_frame    0x00000000      0x18c
  *(.debug_frame)
+ .debug_frame   0x00000000      0x18c main.o
 
-.debug_str
+.debug_str      0x00000000      0x91f
  *(.debug_str)
+ .debug_str     0x00000000      0x91f main.o
+                                0x931 (size before relaxing)
 
-.debug_loc
+.debug_loc      0x00000000      0x253
  *(.debug_loc)
+ .debug_loc     0x00000000      0x253 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -479,5 +491,6 @@ oled_erase_screen                                 main.o
 oled_formatted_string                             main.o
 oled_rectangle                                    main.o
 oled_set_background_colour                        main.o
+servo_send_pulse                                  main.o
 sumredx                                           main.o
 sumredxptr                                        main.o

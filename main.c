@@ -14,6 +14,9 @@
 //Control functions for the camera
 #include "cam.h"
 
+//Control functions for the servos
+#include "servo.h"
+
 //Frame settings
 #define FRAME_WIDTH 128
 #define FRAME_HEIGHT 1
@@ -123,8 +126,6 @@ int main() {
 	oled_erase_screen();
 	oled_formatted_string( 1, 0, 0, WHITE, "Receiving Data" );
 
-	int servo_send_pulse = 10;
-
 	// Main loop
 	for(;;) {
 		
@@ -160,16 +161,12 @@ int main() {
 		redpos		= (96000*redpos) / 128000;
 		if( redpos > 1 && redpos < 95 ) oled_rectangle( redpos, 20, redpos, 50, RED );
 		
-		if( servo_send_pulse == 0 ) {
-			GPIO_WriteBit( GPIOB, GPIO_Pin_8, Bit_SET );
-			GPIO_WriteBit( GPIOB, GPIO_Pin_9, Bit_SET );
-			Delay( 0xFFFFFF );
-			GPIO_WriteBit( GPIOB, GPIO_Pin_8, Bit_RESET );
-			GPIO_WriteBit( GPIOB, GPIO_Pin_9, Bit_RESET );
-			
-			servo_send_pulse = 10;
-		} else {
-			servo_send_pulse--;
+		if( redpos > 1 && redpos < 43 ) {
+			servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
+			servo_send_pulse( SERVO_R, SERVO_R_BACKWARD );
+		} else if( redpos > 53 && redpos < 95 ) {
+			servo_send_pulse( SERVO_L, SERVO_L_BACKWARD );
+			servo_send_pulse( SERVO_R, SERVO_R_FORWARD );
 		}
 		
 	}
