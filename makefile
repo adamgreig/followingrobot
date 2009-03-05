@@ -34,8 +34,8 @@ all: $(MAIN_OUT_ELF) $(MAIN_OUT_BIN)
 
 # main
 
-$(MAIN_OUT_ELF): main.o lcd.o oled.o cam.o servo.o stm32f10x_it.o lib/libstm32.a
-	$(LD) $(LDFLAGS) main.o lcd.o oled.o cam.o servo.o stm32f10x_it.o lib/libstm32.a --output $@
+$(MAIN_OUT_ELF): main.o lcd.o oled.o cam.o servo.o ui.o stm32f10x_it.o lib/libstm32.a
+	$(LD) $(LDFLAGS) main.o lcd.o oled.o cam.o servo.o ui.o stm32f10x_it.o lib/libstm32.a --output $@
 
 $(MAIN_OUT_BIN): $(MAIN_OUT_ELF)
 	$(OBJCP) $(OBJCPFLAGS) $< $@

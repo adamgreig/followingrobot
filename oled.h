@@ -7,6 +7,7 @@
  ***********************************************/
 
 #include "stm32f10x_lib.h"
+#pragma once
 
 //Colour codes in RGB565
 #define BLACK	0x0000

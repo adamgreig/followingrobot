@@ -11,6 +11,9 @@
 #include "lcd.h"
 #include "oled.h"
 
+//UI functions
+#include "ui.h"
+
 //Control functions for the camera
 #include "cam.h"
 
@@ -71,6 +74,8 @@ volatile u32 sumredx;	//Store sum of x-values for red pixels
 volatile u32 *numredptr;//A pointer to the number of red pixels
 volatile u32 *sumredxptr;//A pointer to the sum of the x-values
 
+volatile u8 tracking_enabled;
+
 int main() {
 
 	// Configure clock
@@ -91,8 +96,7 @@ int main() {
 	oled_autobaudrate();
 	Delay( 100000 );
 	oled_set_background_colour( BLACK );
-	oled_erase_screen();
-	oled_formatted_string( 1, 0, 0, WHITE, "Initialising..." );
+    ui_startup( UI_STARTUP_INITIALISING );
 
 	// Configure the LCD
 	GPIO_WriteBit( GPIOA, GPIO_Pin_2, Bit_SET );
@@ -123,24 +127,27 @@ int main() {
 	TIM_Cmd(TIM1, ENABLE);
 	TIM_CtrlPWMOutputs(TIM1, ENABLE);
 
-	oled_erase_screen();
-	oled_formatted_string( 1, 0, 0, WHITE, "Receiving Data" );
+    //Have the user confirm the LCD is showing valid data
+	ui_startup( UI_STARTUP_CONFIRM );
+
+    //Check their reaction
+        //CODE HERE
 
 	// Main loop
 	for(;;) {
-		
+
 		// Initialise the line count and frame pointer
 		linenum		= 0;
 		numred		= 0;
 		sumredx		= 0;
 		dataptr		= data;
-		
+
 		// Prepare the LCD to receive the data
 		lcd_startdata();
-		
+
 		// Trigger interrupt on VD rising (new frame)
 		EXTI_ENABLE_VD
-		
+
 		/*
 			Data is now being recorded by a chain of interrupts.
 			VD will rise, enabling the HD interrupt
@@ -148,27 +155,28 @@ int main() {
 			When 96 lines of data have been read in,
 				interrupts finish and code execution returns here, with the
 				image being sent over the serial port to the screen - not quite any more
-			
+
 		*/
-		
+
 		while( linenum < 96 ) {}
-		
+
 		// Finished sending the LCD data
 		lcd_enddata();
 		oled_erase_screen();
-		
+
 		u32 redpos	= sumredx / numred;
 		redpos		= (96000*redpos) / 128000;
 		if( redpos > 1 && redpos < 95 ) oled_rectangle( redpos, 20, redpos, 50, RED );
-		
-		if( redpos > 1 && redpos < 43 ) {
-			servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
-			servo_send_pulse( SERVO_R, SERVO_R_BACKWARD );
-		} else if( redpos > 53 && redpos < 95 ) {
-			servo_send_pulse( SERVO_L, SERVO_L_BACKWARD );
-			servo_send_pulse( SERVO_R, SERVO_R_FORWARD );
-		}
-		
+
+        if( tracking_enabled ) {
+            if( redpos > 1 && redpos < 43 ) {
+                servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
+                servo_send_pulse( SERVO_R, SERVO_R_BACKWARD );
+            } else if( redpos > 53 && redpos < 95 ) {
+                servo_send_pulse( SERVO_L, SERVO_L_BACKWARD );
+                servo_send_pulse( SERVO_R, SERVO_R_FORWARD );
+            }
+        }
 	}
 
 }
@@ -180,34 +188,34 @@ void flash_eyes( int n ) {
 	asm(
 		"ldr	r0,=0x40011800 + 0x10	\r\n"	//PORTE's BSRR (bit set/reset register)
 		"ldr	r1,=0x40010800 + 0x10	\r\n"	//PORTA's BSRR (bit set/reset register)
-		"ldr	r2,=1<<15		\r\n"	//set PIN15
-		"ldr	r3,=1<<31		\r\n"	//reset PIN15
-		"ldr	r4,=1<<1		\r\n"	//set PIN1
-		"ldr	r5,=1<<17		\r\n"	//reset PIN1
+		"ldr	r2,=1<<15		        \r\n"	//set PIN15
+		"ldr	r3,=1<<31		        \r\n"	//reset PIN15
+		"ldr	r4,=1<<1		        \r\n"	//set PIN1
+		"ldr	r5,=1<<17		        \r\n"	//reset PIN1
 
-		"loop:				\r\n"	//loop back here to flash the eyes
+		"loop:				            \r\n"	//loop back here to flash the eyes
 
-		"str	r2,[r0]			\r\n"	//turn on PE15
-		"str	r4,[r1]			\r\n"	//turn on PA1
+		"str	r2,[r0]			        \r\n"	//turn on PE15
+		"str	r4,[r1]			        \r\n"	//turn on PA1
 
-		"ldr	r6,=0x222222		\r\n"	//store delay counter in r6
-		"d1:				\r\n"	//busy wait loop
-		"subs	r6,#1			\r\n"	//subtract 1 from r3, update status flags
-		"bne	d1			\r\n"	//loop until r3 is 0
+        "ldr	r6,=0x222222		    \r\n"	//store delay counter in r6
+		"d1:				            \r\n"	//busy wait loop
+		"subs	r6,#1			        \r\n"	//subtract 1 from r3, update status flags
+		"bne	d1			            \r\n"	//loop until r3 is 0
 
-		"str	r3,[r0]			\r\n"	//turn off PE15
-		"str	r5,[r1]			\r\n"	//turn off PA1
+		"str	r3,[r0]			        \r\n"	//turn off PE15
+		"str	r5,[r1]			        \r\n"	//turn off PA1
 
-		"ldr	r6,=0x222222		\r\n"	//store delay counter in r6
-		"d2:				\r\n"	//busy wait loop
-		"subs	r6,#1			\r\n"	//subtract 1 from r3, update status flags
-		"bne	d2			\r\n"	//loop until r3 is 0
+		"ldr	r6,=0x222222		    \r\n"	//store delay counter in r6
+		"d2:				            \r\n"	//busy wait loop
+		"subs	r6,#1			        \r\n"	//subtract 1 from r3, update status flags
+		"bne	d2			            \r\n"	//loop until r3 is 0
 
-		"subs	%0,#1			\r\n"	//subtract 1 from input n, update status flags
-		"bne	loop			\r\n"	//flash the eyes again if we should
+		"subs	%0,#1			        \r\n"	//subtract 1 from input n, update status flags
+		"bne	loop			        \r\n"	//flash the eyes again if we should
 
-		:					//no output operands
-		: "r"(n)				//one input, n, number of loops to perform
+		:					                    //no output operands
+		: "r"(n)				                //one input, n, number of loops to perform
 		: "cc", "r0", "r1", "r2", "r3", "r4", "r5", "r6"	//we clobber r0, r1, r2, r3 and the CPU flags change so let the compiler know
 	);
 }
@@ -440,11 +448,11 @@ void EXTI15_10_IRQHandler() {
 			//Load up register values needed to clock in the data
 			"ldr	r0, =0x40011400 + 0x08	\r\n"	//PORTD's IDR (Input Data Register)
 			"ldr	r1, =0x40011800 + 0x08	\r\n"	//PORTE's IDR (Input Data Register)
-			"ldr	r2, =256		\r\n"	//Keep track of number of bytes stored, 256 bytes = 128 pixels
-			"mov	r4, %0			\r\n"	//Copy the data address into r6 for later usage
+			"ldr	r2, =256		        \r\n"	//Keep track of number of bytes stored, 256 bytes = 128 pixels
+			"mov	r4, %0			        \r\n"	//Copy the data address into r6 for later usage
 
 			//Wait while the data clock is still high
-			"dclk_high:			\r\n"	//Wait for DCLK to fall, indicating valid data
+			"dclk_high:			    \r\n"	//Wait for DCLK to fall, indicating valid data
 			"ldr	r3, [r1]		\r\n"	//Load PORTE_IDR into r3
 			"tst	r3, #1<<12		\r\n"	//AND r3 with Pin12, setting flags, discarding results
 			"bne	dclk_high		\r\n"	//If the AND operation was not 0, DCLK is still high, check again
@@ -454,35 +462,35 @@ void EXTI15_10_IRQHandler() {
 			"strb	r3, [%0]		\r\n"	//Store that byte into the frame array
 			"add	%0, #1			\r\n"	//Increment pointer to the frame array to store the next byte
 			"subs	r2, #1			\r\n"	//Decrement r2, which is counting the number of pixels to read
-			"beq	end			\r\n"	//If r2 is now 0, we've read all we want, exit
+			"beq	end			    \r\n"	//If r2 is now 0, we've read all we want, exit
 
 			//Wait while the data clock is still low
-			"dclk_low:			\r\n"	//Wait for DCLK to rise, so we can go back to waiting for it to fall
+			"dclk_low:			    \r\n"	//Wait for DCLK to rise, so we can go back to waiting for it to fall
 			"ldr	r3, [r1]		\r\n"	//Load PORTE_IDR into r3
 			"tst	r3, #1<<12		\r\n"	//AND r3 with Pin12, setting flags, discarding results
 			"beq	dclk_low		\r\n"	//If the AND operation was 0, DCLK is still low, check again
-			"b	dclk_high		\r\n"	//Read in the next byte
+			"b	dclk_high		    \r\n"	//Read in the next byte
 
-			"end:				\r\n"	//Jump here once we've read in all the data we want
+			"end:				    \r\n"	//Jump here once we've read in all the data we want
 
 			//Configure and trigger the DMA request that will send the data to the LCD
 			"ldr	r0, =0x40020000 + 0x30	\r\n"	//DMA1_CCR3 - configure DMA1 channel 3 for SPI1_TX
-			"ldr	r1, =0x3090		\r\n"	//Settings for CCR3
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x3090		        \r\n"	//Settings for CCR3
+			"str	r1, [r0]		        \r\n"
 			"ldr	r0, =0x40020000 + 0x34	\r\n"	//DMA1_CNDTR3 - number of data to transfer
-			"ldr	r1, =256		\r\n"	//256 data to transfer
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =256		        \r\n"	//256 data to transfer
+			"str	r1, [r0]		        \r\n"
 			"ldr	r0, =0x40020000 + 0x38	\r\n"	//DMA1_CPAR3 - Peripheral Address
-			"ldr	r1, =0x4001300C		\r\n"	//Address of SPI1 Tx
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x4001300C		    \r\n"	//Address of SPI1 Tx
+			"str	r1, [r0]		        \r\n"
 			"ldr	r0, =0x40020000 + 0x3C	\r\n"	//DMA1_CMAR3 - Memory Address
-			"str	r4, [r0]		\r\n"	//Data address
+			"str	r4, [r0]		        \r\n"	//Data address
 			"ldr	r0, =0x40020000 + 0x30	\r\n"	//DMA1_CCR3 - configure DMA1 channel 3 for SPI1_TX
-			"ldr	r1, =0x3091		\r\n"	//Enable DMA1_CH3
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x3091		        \r\n"	//Enable DMA1_CH3
+			"str	r1, [r0]		        \r\n"
 			"ldr	r0, =0x40013000 + 0x04	\r\n"	//SPI1_CR2 - SPI1 control register 2, used to enable DMA Tx
-			"ldr	r1, =0x02		\r\n"	//Enable DMA Tx request
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x02		        \r\n"	//Enable DMA Tx request
+			"str	r1, [r0]		        \r\n"
 
 			//Analyse the image to determine the position of red pixels
 			"ldr	r0, =0			\r\n"	//Current pixel number
@@ -490,12 +498,12 @@ void EXTI15_10_IRQHandler() {
 			"ldrb	r1, [r4]		\r\n"	//Load first byte into r1 from r4
 			"lsr	r1, r1, #3		\r\n"	//Shift right three places so all that's left is red
 			"cmp	r1, #22			\r\n"	//Compare red values to 22
-			"bhs	analyse_further		\r\n"	//If red>=22 branch to analyse_further
+			"bhs	analyse_further	\r\n"	//If red>=22 branch to analyse_further
 			"add	r4, #2			\r\n"	//Point r4 to the next whole pixel (2 bytes on)
 			"add	r0, #1			\r\n"	//Increment pixel number
 			"cmp	r0, #128		\r\n"	//Compare pixel number to 128, the max
-			"bne	analyse_start		\r\n"	//Return to analyse the next pixel if it's not at 128
-			"b	disable_dma		\r\n"	//Otherwise go on to disable the DMA
+			"bne	analyse_start	\r\n"	//Return to analyse the next pixel if it's not at 128
+			"b	disable_dma		    \r\n"	//Otherwise go on to disable the DMA
 
 			"analyse_further:		\r\n"	//If red>=22 go here
 			"ldrb	r1, [r4]		\r\n"	//Load the first byte into r1
@@ -504,17 +512,17 @@ void EXTI15_10_IRQHandler() {
 			"add	r4, #1			\r\n"	//Increment r4 so it now points at the start of the next pixel
 			"lsl	r1, #8			\r\n"	//Shift the first pixel up by eight
 			"orr	r1, r1, r2		\r\n"	//Combine r1 and r2 so r1 now holds 16 bits, the entire pixel
-			"and	r2, r1, #0x07E0		\r\n"	//Put greens in r2
-			"and	r1, r1, #0x001F		\r\n"	//Put blues in r1
+			"and	r2, r1, #0x07E0	\r\n"	//Put greens in r2
+			"and	r1, r1, #0x001F	\r\n"	//Put blues in r1
 			"lsr	r2, #6			\r\n"	//Move greens into LSBs and chop off one bit to give same range as blues
 			"cmp	r1, #13			\r\n"	//Compare blues to 13
-			"it	ls			\r\n"	//If blues<=13
+			"it	ls			        \r\n"	//If blues<=13
 			"cmpls	r2, #13			\r\n"	//	then compare greens to 13
-			"bls	analyse_update		\r\n"	//If greens<=13 branch to analyse_update, storing the x-val of the pixel
+			"bls	analyse_update	\r\n"	//If greens<=13 branch to analyse_update, storing the x-val of the pixel
 			"add	r0, #1			\r\n"	//Increment pixel number
 			"cmp	r0, #128		\r\n"	//Compare to 128
-			"bne	analyse_start		\r\n"	//Resume analysis if not finished
-			"b	disable_dma		\r\n"	//Otherwise finished analysing
+			"bne	analyse_start	\r\n"	//Resume analysis if not finished
+			"b	disable_dma		    \r\n"	//Otherwise finished analysing
 
 			"analyse_update:		\r\n"	//If the pixel is a red one we are interested in
 			"ldr	r1, [%1]		\r\n"	//Load number of red pixels into r1
@@ -525,25 +533,25 @@ void EXTI15_10_IRQHandler() {
 			"str	r2, [%2]		\r\n"	//Store new sum of x-values
 			"add	r0, #1			\r\n"	//Increment pixel number
 			"cmp	r0, #128		\r\n"	//Compare to 128
-			"bne	analyse_start		\r\n"	//Resume analysis if not finished
+			"bne	analyse_start	\r\n"	//Resume analysis if not finished
 								//Otherwise execution continues on to disabling DMA
 
 			//Wait for the DMA request to end then disable the DMA channel
-			"disable_dma:			\r\n"	//Label used to skip past image analysing part
-			"ldr	r0, =0x40020000 	\r\n"	//DMA1_ISR
-			"transfer_complete:		\r\n"
-			"ldr	r1, [r0]		\r\n"	//Load DMA1_ISR into r1
-			"tst	r1, #1<<9		\r\n"	//Test for TCIF3 (transfer complete ch3)
-			"beq	transfer_complete	\r\n"	//Wait for it to be set to 1 by the DMA
+			"disable_dma:			        \r\n"	//Label used to skip past image analysing part
+			"ldr	r0, =0x40020000         \r\n"	//DMA1_ISR
+			"transfer_complete:		        \r\n"
+			"ldr	r1, [r0]		        \r\n"	//Load DMA1_ISR into r1
+			"tst	r1, #1<<9		        \r\n"	//Test for TCIF3 (transfer complete ch3)
+			"beq	transfer_complete       \r\n"	//Wait for it to be set to 1 by the DMA
 			"ldr	r0, =0x40020000 + 0x04	\r\n"	//DMA1_IFCR
-			"ldr	r1, =1<<9		\r\n"	//CTCIF3, clear transfer complete for ch3
-			"str	r1, [r0]		\r\n"	//Clear the bit
+			"ldr	r1, =1<<9		        \r\n"	//CTCIF3, clear transfer complete for ch3
+			"str	r1, [r0]		        \r\n"	//Clear the bit
 			"ldr	r0, =0x40020000 + 0x30	\r\n"	//DMA1_CCR3
-			"ldr	r1, =0x3090		\r\n"	//Disable DMA1_CH3
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x3090		        \r\n"	//Disable DMA1_CH3
+			"str	r1, [r0]		        \r\n"
 			"ldr	r0, =0x40013000 + 0x04	\r\n"	//SPI1_CR2
-			"ldr	r1, =0x00		\r\n"	//Disable SP1 DMA Tx
-			"str	r1, [r0]		\r\n"
+			"ldr	r1, =0x00		        \r\n"	//Disable SP1 DMA Tx
+			"str	r1, [r0]		        \r\n"
 
 			: 					//No output operands
 			: "r"(data), "r"(numredptr), "r"(sumredxptr)//The start of the data array
@@ -566,10 +574,10 @@ void EXTI15_10_IRQHandler() {
 }
 
 void Clock_Config() {
-	
+
 	// Reset RCC
 	RCC_DeInit();
-	
+
 	// Enable HSE (High-Speed External oscillator)
 	RCC_HSEConfig( RCC_HSE_ON );
 
