@@ -74,7 +74,8 @@ volatile u32 sumredx;	//Store sum of x-values for red pixels
 volatile u32 *numredptr;//A pointer to the number of red pixels
 volatile u32 *sumredxptr;//A pointer to the sum of the x-values
 
-volatile u8 tracking_enabled;
+volatile u8 tracking_enabled = 0;
+volatile u8 ui_menu_selection = UI_SELECT_TRACKING;
 
 int main() {
 
@@ -96,7 +97,6 @@ int main() {
 	oled_autobaudrate();
 	Delay( 100000 );
 	oled_set_background_colour( BLACK );
-    ui_startup( UI_STARTUP_INITIALISING );
 
 	// Configure the LCD
 	GPIO_WriteBit( GPIOA, GPIO_Pin_2, Bit_SET );
@@ -127,12 +127,6 @@ int main() {
 	TIM_Cmd(TIM1, ENABLE);
 	TIM_CtrlPWMOutputs(TIM1, ENABLE);
 
-    //Have the user confirm the LCD is showing valid data
-	ui_startup( UI_STARTUP_CONFIRM );
-
-    //Check their reaction
-        //CODE HERE
-
 	// Main loop
 	for(;;) {
 
@@ -162,12 +156,16 @@ int main() {
 
 		// Finished sending the LCD data
 		lcd_enddata();
-		oled_erase_screen();
 
+        //Clear the OLED
+        oled_erase_screen();
+
+        //Calculate centre of mass of red pixels
 		u32 redpos	= sumredx / numred;
 		redpos		= (96000*redpos) / 128000;
-		if( redpos > 1 && redpos < 95 ) oled_rectangle( redpos, 20, redpos, 50, RED );
+		if( redpos > 1 && redpos < 95 ) oled_rectangle( redpos, 43, redpos, 63, RED );
 
+        //If tracking is on, move the robot to face the centre of mass
         if( tracking_enabled ) {
             if( redpos > 1 && redpos < 43 ) {
                 servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
@@ -177,6 +175,12 @@ int main() {
                 servo_send_pulse( SERVO_R, SERVO_R_FORWARD );
             }
         }
+
+        //Check to see if any buttons are being pressed
+        ui_check();
+
+        //Draw the current menu
+        ui_menu();
 	}
 
 }
