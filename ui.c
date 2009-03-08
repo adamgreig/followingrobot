@@ -16,7 +16,8 @@ void ui_menu() {
         oled_rectangle( 0, 12, 95, 24, RED );
     }
     //Draw the text itself
-    //oled_formatted_string( 0, 0, 0, WHITE, "Tracking ON/OFF" );
+    oled_formatted_string( 0, 0, 0, WHITE, "Tracking" );
+    Delay( 100000 );
     oled_formatted_string( 0, 2, 0, WHITE, "Toggle SD/LCD" );
 }
 
@@ -29,5 +30,6 @@ void ui_check() {
     } else if( GPIO_ReadInputDataBit( GPIOC, GPIO_Pin_11 ) == 0 ) {
         if( ui_menu_selection == UI_SELECT_TRACKING ) tracking_enabled = !tracking_enabled;
         //else if( ui_menu_selection == UI_SELECT_SD )
+        flash_eyes(1);
     }
 }

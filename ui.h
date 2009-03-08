@@ -8,6 +8,10 @@
 //OLED functions. Also includes the STM32 library
 #include "oled.h"
 
+//provided by main.c
+void flash_eyes( int n );
+void Delay( unsigned long delay );
+
 //tracking_enabled is defined in main.c
 extern volatile u8 tracking_enabled;
 
