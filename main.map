@@ -348,31 +348,31 @@ LOAD /home/adam/Code/ARM/arm-2008q3/bin/../lib/gcc/arm-none-eabi/4.3.2/crtn.o
                 0x00000000       0x20 main.o
 
 .debug_pubnames
-                0x00000000      0x25e
+                0x00000000      0x271
  *(.debug_pubnames)
  .debug_pubnames
-                0x00000000      0x25e main.o
+                0x00000000      0x271 main.o
 
-.debug_info     0x00000000      0xe66
+.debug_info     0x00000000      0xe78
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0xe66 main.o
+ .debug_info    0x00000000      0xe78 main.o
 
 .debug_abbrev   0x00000000      0x17f
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x17f main.o
 
-.debug_line     0x00000000      0x1fc
+.debug_line     0x00000000      0x1fe
  *(.debug_line)
- .debug_line    0x00000000      0x1fc main.o
+ .debug_line    0x00000000      0x1fe main.o
 
 .debug_frame    0x00000000      0x18c
  *(.debug_frame)
  .debug_frame   0x00000000      0x18c main.o
 
-.debug_str      0x00000000      0x942
+.debug_str      0x00000000      0x951
  *(.debug_str)
- .debug_str     0x00000000      0x942 main.o
-                                0x954 (size before relaxing)
+ .debug_str     0x00000000      0x951 main.o
+                                0x963 (size before relaxing)
 
 .debug_loc      0x00000000      0x253
  *(.debug_loc)
@@ -481,6 +481,7 @@ flash_eyes                                        main.o
 lcd_enddata                                       main.o
 lcd_initialise                                    main.o
 lcd_startdata                                     main.o
+lights_enabled                                    main.o
 linenum                                           main.o
 main                                              main.o
 numred                                            main.o

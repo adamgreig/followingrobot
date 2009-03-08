@@ -11,25 +11,30 @@ void ui_menu() {
     if( ui_menu_selection == UI_SELECT_TRACKING ) {
         //Draw a rectangle below 'tracking'
         oled_rectangle( 0, 0, 95, 12, RED );
-    } else if( ui_menu_selection == UI_SELECT_SD ) {
+    } else if( ui_menu_selection == UI_SELECT_LIGHTS ) {
         //Draw a rectangle below 'SD'
         oled_rectangle( 0, 12, 95, 24, RED );
     }
     //Draw the text itself
-    oled_formatted_string( 0, 0, 0, WHITE, "Tracking" );
-    Delay( 100000 );
-    oled_formatted_string( 0, 2, 0, WHITE, "Toggle SD/LCD" );
+    oled_formatted_string( 0, 0, 0, WHITE, "Tracking On/Off" );
+    Delay( 20000 );
+    oled_formatted_string( 0, 2, 0, WHITE, "Lights On/Off" );
 }
 
 void ui_check() {
     //UP or DOWN being pressed
     if( GPIO_ReadInputDataBit( GPIOC, GPIO_Pin_10 ) == 0 || GPIO_ReadInputDataBit( GPIOC, GPIO_Pin_12 ) == 0 ) {
-        if( ui_menu_selection == UI_SELECT_TRACKING ) ui_menu_selection = UI_SELECT_SD;
+        if( ui_menu_selection == UI_SELECT_TRACKING ) ui_menu_selection = UI_SELECT_LIGHTS;
         else ui_menu_selection = UI_SELECT_TRACKING;
     //SELECT being pressed
     } else if( GPIO_ReadInputDataBit( GPIOC, GPIO_Pin_11 ) == 0 ) {
-        if( ui_menu_selection == UI_SELECT_TRACKING ) tracking_enabled = !tracking_enabled;
-        //else if( ui_menu_selection == UI_SELECT_SD )
-        flash_eyes(1);
+        if( ui_menu_selection == UI_SELECT_TRACKING ) {
+            tracking_enabled = !tracking_enabled;
+            flash_eyes(1);
+        } else if( ui_menu_selection == UI_SELECT_LIGHTS ) {
+            lights_enabled = !lights_enabled;
+            if( lights_enabled ) GPIO_SetBits( GPIOE, GPIO_Pin_15 );
+            else GPIO_ResetBits( GPIOE, GPIO_Pin_15 );
+        }
     }
 }

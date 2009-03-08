@@ -75,6 +75,7 @@ volatile u32 *numredptr;//A pointer to the number of red pixels
 volatile u32 *sumredxptr;//A pointer to the sum of the x-values
 
 volatile u8 tracking_enabled = 0;
+volatile u8 lights_enabled = 0;
 volatile u8 ui_menu_selection = UI_SELECT_TRACKING;
 
 int main() {
@@ -222,6 +223,10 @@ void flash_eyes( int n ) {
 		: "r"(n)				                //one input, n, number of loops to perform
 		: "cc", "r0", "r1", "r2", "r3", "r4", "r5", "r6"	//we clobber r0, r1, r2, r3 and the CPU flags change so let the compiler know
 	);
+
+    //If lights should be on, make sure they're on again after flashing
+    if( lights_enabled )
+        GPIO_SetBits( GPIOE, GPIO_Pin_15 );
 }
 
 void Delay( unsigned long delay ) {
