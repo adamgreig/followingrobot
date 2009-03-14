@@ -13,15 +13,17 @@ void flash_eyes( int n );
 void Delay( unsigned long delay );
 
 //tracking_enabled is defined in main.c
-extern volatile u8 tracking_enabled;
+extern volatile u8 turning_enabled;
+extern volatile u8 driving_enabled;
 extern volatile u8 lights_enabled;
 
 //keep track of what menu option is selected
 extern volatile u8 ui_menu_selection;
 
 //The different menu options that might be selected
-#define UI_SELECT_TRACKING 1
-#define UI_SELECT_LIGHTS 2
+#define UI_SELECT_TURNING 1
+#define UI_SELECT_DRIVING 2
+#define UI_SELECT_LIGHTS 3
 
 //ui_menu: display the menu, highlighting the selected choice
 void ui_menu();
