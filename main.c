@@ -170,11 +170,11 @@ int main() {
         //If tracking is on, move the robot to face the centre of mass
         if( turning_enabled ) {
             if( redpos > 1 && redpos < 43 ) {
-                servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
-                servo_send_pulse( SERVO_R, SERVO_R_BACKWARD );
-            } else if( redpos > 53 && redpos < 95 ) {
                 servo_send_pulse( SERVO_L, SERVO_L_BACKWARD );
                 servo_send_pulse( SERVO_R, SERVO_R_FORWARD );
+            } else if( redpos > 53 && redpos < 95 ) {
+                servo_send_pulse( SERVO_L, SERVO_L_FORWARD );
+                servo_send_pulse( SERVO_R, SERVO_R_BACKWARD );
             }
         }
 
