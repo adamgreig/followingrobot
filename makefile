@@ -4,24 +4,22 @@ COMPILE_OPTS = -mcpu=cortex-m3 -mthumb -Wall -g -O0
 INCLUDE_DIRS = -I . -I lib/inc
 LIBRARY_DIRS = -L lib
 
-BIN_PATH = ../arm-2008q3/bin/
-
-CC = $(BIN_PATH)arm-none-eabi-gcc
+CC = arm-none-eabi-gcc
 CFLAGS = $(COMPILE_OPTS) $(INCLUDE_DIRS)
 
-CXX = $(BIN_PATH)arm-none-eabi-g++
+CXX = arm-none-eabi-g++
 CXXFLAGS = $(COMPILE_OPTS) $(INCLUDE_DIRS)
 
-AS = $(BIN_PATH)arm-none-eabi-gcc
+AS = arm-none-eabi-gcc
 ASFLAGS = $(COMPILE_OPTS) -c
 
-LD = $(BIN_PATH)arm-none-eabi-gcc
+LD = arm-none-eabi-gcc
 LDFLAGS = -Wl,--gc-sections,-Map=$@.map,-cref,-u,Reset_Handler $(INCLUDE_DIRS) $(LIBRARY_DIRS) -T stm32.ld
 
-OBJCP = $(BIN_PATH)arm-none-eabi-objcopy
+OBJCP = arm-none-eabi-objcopy
 OBJCPFLAGS = -O binary
 
-AR = $(BIN_PATH)arm-none-eabi-ar
+AR = arm-none-eabi-ar
 ARFLAGS = cr
 
 MAIN_OUT = main

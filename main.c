@@ -148,9 +148,10 @@ int main() {
 			Data is now being recorded by a chain of interrupts.
 			VD will rise, enabling the HD interrupt
 			HD will rise, clock in 256 bytes of data from DCLK, and reset the HD interrupt
+            The DMA is triggered to send the data to the LCD, and the data is processed to
+            find the centre of mass of the coloured pixels.
 			When 96 lines of data have been read in,
-				interrupts finish and code execution returns here, with the
-				image being sent over the serial port to the screen - not quite any more
+				interrupts finish and code execution returns here
 
 		*/
 
